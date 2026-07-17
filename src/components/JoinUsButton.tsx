@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
 import { UserPlus } from 'lucide-react';
-
-// TODO: 換成正式的加入我們連結
-const JOIN_US_URL = '#';
+import { JOIN_US_URL } from '../lib/constants';
 
 export default function JoinUsButton() {
   return (

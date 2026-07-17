@@ -1,29 +1,63 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero';
-
-const quickLinks = [
-  { href: '/members', label: 'Members', description: '認識社團成員' },
-  { href: '/about', label: 'About', description: '社團介紹與宗旨' },
-  { href: '/blog', label: 'Blog', description: '活動紀錄與心得分享' },
-  { href: '/announce', label: 'Announce', description: '最新公告與消息' },
-];
+import AnnounceCarousel from '../components/AnnounceCarousel';
+import HomeJoinUs from '../components/HomeJoinUs';
+import SocialLinks from '../components/SocialLinks';
+import { announcements } from '../data/announcements';
+import { aboutIntro, aboutHighlights, socialLinks } from '../data/about';
 ---
 
 <BaseLayout navVariant="overlay">
 	<Hero client:load clubName="國立陽明交通大學 日本文化研究社" />
 
-	<main id="main-content" class="mx-auto max-w-6xl px-6 py-20">
-		<section class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-			{quickLinks.map((link) => (
+	<main id="main-content">
+		<section class="mx-auto max-w-6xl px-6 py-20">
+			<div class="flex items-end justify-between gap-4">
+				<div>
+					<h2 class="text-3xl font-bold text-gray-900">Announce</h2>
+					<p class="mt-2 text-gray-500">最新公告與消息</p>
+				</div>
 				<a
-					href={link.href}
-					class="rounded-xl border border-gray-200 p-6 transition-shadow hover:shadow-md"
+					href="/announce"
+					class="shrink-0 text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
 				>
-					<h2 class="text-lg font-semibold text-gray-900">{link.label}</h2>
-					<p class="mt-2 text-sm text-gray-500">{link.description}</p>
+					Read More →
 				</a>
-			))}
+			</div>
+
+			<div class="mt-10">
+				<AnnounceCarousel client:load announcements={announcements} />
+			</div>
+		</section>
+
+		<section class="mx-auto max-w-6xl px-6 py-20">
+			<h2 class="text-3xl font-bold text-gray-900">About Us</h2>
+			<p class="mt-4 max-w-3xl text-lg leading-relaxed text-gray-600">{aboutIntro}</p>
+
+			<div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+				{aboutHighlights.map((highlight) => (
+					<div class="group overflow-hidden rounded-2xl border border-gray-200 shadow-sm transition-shadow hover:shadow-md">
+						<div class="overflow-hidden">
+							<img
+								src={highlight.image}
+								alt={highlight.title}
+								class="h-36 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+							/>
+						</div>
+						<div class="p-5">
+							<h3 class="font-semibold text-gray-900">{highlight.title}</h3>
+							<p class="mt-2 text-sm text-gray-600">{highlight.description}</p>
+						</div>
+					</div>
+				))}
+			</div>
+
+			<div class="mt-14">
+				<SocialLinks links={socialLinks} />
+			</div>
 		</section>
 	</main>
+
+	<HomeJoinUs client:load />
 </BaseLayout>
