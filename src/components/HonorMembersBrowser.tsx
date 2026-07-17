@@ -10,11 +10,11 @@ import {
 } from '@radix-ui/react-icons';
 import { BilibiliIcon, XIcon } from './icons/SocialIcons';
 import {
-  attachTermId,
+  attachHonorTermId,
   DEFAULT_ACCENT_COLOR,
-  type MemberTerm,
-  type MemberWithTerm,
-} from '../data/members';
+  type HonorMemberTerm,
+  type HonorMemberWithTerm,
+} from '../data/honor_members';
 
 const ALL_TERM_ID = 'all';
 
@@ -33,35 +33,39 @@ function getSnsIcon(label: string) {
   return SNS_ICONS[label.trim().toLowerCase()] ?? GlobeIcon;
 }
 
-type MembersBrowserProps = {
-  terms: MemberTerm[];
+type HonorMembersBrowserProps = {
+  terms: HonorMemberTerm[];
   initialTermId?: string;
   initialSlug?: string;
 };
 
-function flattenMembers(terms: MemberTerm[]): MemberWithTerm[] {
-  return terms.flatMap(attachTermId);
-}
-
-function resolveInitialTermId(terms: MemberTerm[], initialTermId?: string): string {
+function resolveInitialTermId(terms: HonorMemberTerm[], initialTermId?: string): string {
   if (initialTermId && terms.some((term) => term.id === initialTermId)) {
     return initialTermId;
   }
   return terms[0]?.id ?? ALL_TERM_ID;
 }
 
-function membersForTerm(terms: MemberTerm[], termId: string): MemberWithTerm[] {
-  if (termId === ALL_TERM_ID) return flattenMembers(terms);
-  const term = terms.find((t) => t.id === termId);
-  return term ? attachTermId(term) : [];
+function flattenMembers(terms: HonorMemberTerm[]): HonorMemberWithTerm[] {
+  return terms.flatMap(attachHonorTermId);
 }
 
-export default function MembersBrowser({ terms, initialTermId, initialSlug }: MembersBrowserProps) {
+function membersForTerm(terms: HonorMemberTerm[], termId: string): HonorMemberWithTerm[] {
+  if (termId === ALL_TERM_ID) return flattenMembers(terms);
+  const term = terms.find((t) => t.id === termId);
+  return term ? attachHonorTermId(term) : [];
+}
+
+export default function HonorMembersBrowser({
+  terms,
+  initialTermId,
+  initialSlug,
+}: HonorMembersBrowserProps) {
   const [selectedTermId, setSelectedTermId] = useState<string>(() =>
     resolveInitialTermId(terms, initialTermId),
   );
 
-  const activeMembers = useMemo<MemberWithTerm[]>(
+  const activeMembers = useMemo<HonorMemberWithTerm[]>(
     () => membersForTerm(terms, selectedTermId),
     [terms, selectedTermId],
   );
@@ -160,7 +164,7 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
                   <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 px-4 pt-4 font-mono text-xs uppercase tracking-widest text-gray-400 sm:px-8 sm:pt-6 sm:text-sm">
                     <span>Club Member Pass</span>
                     <span>
-                      No. {currentMember.termId}-{currentMember.slug}
+                      No. {currentMember.termId.toUpperCase()}-{currentMember.slug.toUpperCase()}
                     </span>
                   </div>
                   <div className="flex flex-col gap-6 p-4 sm:min-h-[28rem] sm:flex-row sm:p-8">
@@ -180,6 +184,7 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
                       <h2 className="relative text-2xl font-semibold text-gray-700 sm:text-3xl">
                         {currentMember.name}
                       </h2>
+
                       <p className="mt-3 px-5 text-lg leading-relaxed text-gray-600 sm:px-0 sm:text-xl">
                         {currentMember.description}
                       </p>
@@ -203,15 +208,6 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
                             </div>
                           ))}
                       </dl>
-{/*
-                      {currentMember.certifications && (
-                        <div className="mt-4">
-                          <p className="text-base text-gray-400">證照</p>
-                          <p className="mt-1 text-base leading-relaxed text-gray-700">
-                            {currentMember.certifications}
-                          </p>
-                        </div>
-                      )}*/}
 
                       {currentMember.sns && currentMember.sns.length > 0 && (
                         <div className="mt-6 gap-y-2">

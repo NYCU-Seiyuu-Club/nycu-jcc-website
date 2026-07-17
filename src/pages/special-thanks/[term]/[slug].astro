@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import MembersBrowser from "../../../components/MembersBrowser";
-import { memberTerms } from "../../../data/members";
+import HonorMembersBrowser from "../../../components/HonorMembersBrowser";
+import { honorMemberTerms } from "../../../data/honor_members";
 
 export function getStaticPaths() {
-    return memberTerms.flatMap((term) =>
+    return honorMemberTerms.flatMap((term) =>
         term.members.map((member) => ({
             params: { term: term.id, slug: member.slug },
         })),
@@ -22,9 +22,9 @@ const { term, slug } = Astro.params;
         </div>
 
         <div class="mt-4 sm:-mt-3">
-            <MembersBrowser
+            <HonorMembersBrowser
                 client:load
-                terms={memberTerms}
+                terms={honorMemberTerms}
                 initialTermId={term}
                 initialSlug={slug}
             />

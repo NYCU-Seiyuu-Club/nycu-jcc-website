@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import MembersBrowser from '../../../components/MembersBrowser';
-import { memberTerms } from '../../../data/members';
+import HonorMembersBrowser from '../../../components/HonorMembersBrowser';
+import { honorMemberTerms } from '../../../data/honor_members';
 
 export function getStaticPaths() {
-  return memberTerms.map((term) => ({
+  return honorMemberTerms.map((term) => ({
     params: { term: term.id },
   }));
 }
@@ -18,7 +18,7 @@ const { term } = Astro.params;
 		<p class="mt-2 sm:ml-4 text-gray-500">歷屆幹部介紹</p>
 
 		<div class="mt-4 sm:-mt-3">
-			<MembersBrowser client:load terms={memberTerms} initialTermId={term} />
+			<HonorMembersBrowser client:load terms={honorMemberTerms} initialTermId={term} />
 		</div>
 	</main>
 </BaseLayout>

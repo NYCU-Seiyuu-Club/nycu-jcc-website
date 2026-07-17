@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import MembersBrowser from '../../components/MembersBrowser';
-import { memberTerms } from '../../data/members';
+import HonorMembersBrowser from '../../components/HonorMembersBrowser';
+import { honorMemberTerms } from '../../data/honor_members';
 ---
 
 <BaseLayout title="Special Thanks | 日本文化研究社">
@@ -10,7 +10,7 @@ import { memberTerms } from '../../data/members';
 		<p class="mt-2 sm:ml-4 text-gray-500">歷屆幹部介紹</p>
 
 		<div class="mt-4 sm:-mt-3">
-			<MembersBrowser client:load terms={memberTerms} />
+			<HonorMembersBrowser client:load terms={honorMemberTerms} />
 		</div>
 	</main>
 </BaseLayout>

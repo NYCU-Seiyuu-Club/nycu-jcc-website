@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
+  { href: '/about', label: 'About' },
+  { href: '/announce', label: 'Announce' },
   { href: '/members', label: 'Members' },
   { href: '/special-thanks', label: 'Special Thanks' },
-  { href: '/about', label: 'About' },
   { href: '/blog', label: 'Blog' },
-  { href: '/announce', label: 'Announce' },
 ];
 
 type NavbarProps = {
