@@ -23,17 +23,19 @@
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml     # 推送到 main 分支時自動 build 並部署到 GitHub Pages
-├── public/                 # 靜態資源（圖片、favicon 等）
+├── public/                 # 靜態資源（圖片、favicon、CNAME 等）
 ├── src/
+│   ├── components/
+│   │   └── Welcome.tsx     # React 元件
 │   └── pages/
 │       └── index.astro     # 首頁，Astro 依 src/pages/ 內的檔案自動產生路由
-├── astro.config.mjs         # Astro 設定（含 GitHub Pages 的 site / base）
+├── astro.config.mjs         # Astro 設定（含自訂網域用的 site）
 ├── package.json
 ├── pnpm-lock.yaml
 └── tsconfig.json            # TypeScript strict 設定
 ```
 
-Astro / React / Vue / Svelte 元件習慣放在 `src/components/`（尚未建立，之後依需求新增）。
+Astro / React / Vue / Svelte 元件放在 `src/components/`。
 
 ## 本機開發
 
@@ -48,15 +50,18 @@ pnpm preview   # 在本機預覽 build 後的結果
 
 本專案使用官方的 [`withastro/action`](https://github.com/withastro/action)，推送到 `main` 分支時會自動建置並部署到 GitHub Pages（設定於 `.github/workflows/deploy.yml`）。
 
+本站使用自訂網域 `jcc.nycu.cc`，`astro.config.mjs` 的 `site` 已設定為 `https://jcc.nycu.cc`，且因為自訂網域跑在網域根目錄，不需要設定 `base`。`public/CNAME` 內容為 `jcc.nycu.cc`，build 時會一併輸出到 `dist/CNAME`，GitHub Pages 需要這個檔案才知道要綁哪個自訂網域。
+
 部署前請務必完成以下設定：
 
-1. **修改 `astro.config.mjs`**
-   - 將 `site` 換成你自己的 GitHub Pages 網址，例如：`https://<你的GitHub帳號>.github.io`
-   - 若這個 repo 的名稱就是 `<你的GitHub帳號>.github.io`（帳號/組織首頁站台），請把 `base: '/nycu-jcc'` 這行刪除或註解掉；若是一般專案 repo（例如目前的 `nycu-jcc`），請保留並確認 `base` 的值等於 repo 名稱。
-
-2. **在 GitHub repo 開啟 Pages 部署來源**
+1. **在 GitHub repo 開啟 Pages 部署來源**
    - 到 repo 的 **Settings → Pages**
    - 在 **Source** 選擇 **GitHub Actions**
+
+2. **設定自訂網域**
+   - 到 repo 的 **Settings → Pages → Custom domain**，填入 `jcc.nycu.cc` 並儲存
+   - 到 DNS 供應商那邊，新增一筆 CNAME 記錄，把 `jcc.nycu.cc` 指向 `nycu-seiyuu-club.github.io`
+   - 等 DNS 生效、GitHub 驗證通過後，`https://nycu-seiyuu-club.github.io/nycu-jcc-website/` 會自動 301 轉址到 `https://jcc.nycu.cc/`，兩個網址都能正常使用
 
 3. **推送到 `main` 分支**
    - GitHub Actions 會自動觸發 `.github/workflows/deploy.yml`，安裝依賴、build，並部署到 GitHub Pages
