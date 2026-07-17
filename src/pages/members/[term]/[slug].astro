@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import MembersBrowser from "../../../components/MembersBrowser";
+import { memberTerms } from "../../../data/members";
+
+export function getStaticPaths() {
+    return memberTerms.flatMap((term) =>
+        term.members.map((member) => ({
+            params: { term: term.id, slug: member.slug },
+        })),
+    );
+}
+
+const { term, slug } = Astro.params;
+---
+
+<BaseLayout title="Special Thanks | 日本文化研究社">
+    <main class="mx-auto max-w-[120em] px-6 pt-24 pb-20">
+        <div class="ml-60">
+            <h1 class="text-3xl font-bold text-gray-900">Special Thanks</h1>
+            <p class="mt-2 ml-2 text-gray-500">特此感謝歷屆幹部參與付出</p>
+        </div>
+
+        <div class="-mt-3">
+            <MembersBrowser
+                client:load
+                terms={memberTerms}
+                initialTermId={term}
+                initialSlug={slug}
+            />
+        </div>
+    </main>
+</BaseLayout>
