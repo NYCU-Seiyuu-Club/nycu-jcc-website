@@ -9,6 +9,9 @@ export interface Oshi {
   photo: string;
 }
 
+export const MEMBER_GROUPS = ['打藝應援組', '流行文化組', '傳統文化組', '史地考察組'] as const;
+export type MemberGroup = (typeof MEMBER_GROUPS)[number];
+
 export interface Member {
   slug: string;
   name: string;
@@ -25,6 +28,10 @@ export interface Member {
   sns?: SnsLink[];
   oshi?: Oshi;
   accentColor?: string;
+  /** 所屬小組，沒填代表沒分組 */
+  group?: MemberGroup;
+  /** 在校現任或已畢業/已卸任，預設 active */
+  status?: 'active' | 'alumni';
 }
 
 export const DEFAULT_ACCENT_COLOR = '#eab308';
@@ -82,6 +89,7 @@ export const memberTerms: MemberTerm[] = [
         slug: 'vice-president',
         name: '企鵝',
         titles: ['副社長', '史地考察組組長'],
+        group: '史地考察組',
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -138,6 +146,7 @@ export const memberTerms: MemberTerm[] = [
         slug: 'group-cheer-leader',
         name: '天適',
         titles: ['打藝應援組組長'],
+        group: '打藝應援組',
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -152,6 +161,7 @@ export const memberTerms: MemberTerm[] = [
         slug: 'group-pop-culture-leader',
         name: '銀葉',
         titles: ['流行文化組組長'],
+        group: '流行文化組',
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -166,6 +176,7 @@ export const memberTerms: MemberTerm[] = [
         slug: 'group-traditional-culture-leader',
         name: '阿冬',
         titles: ['傳統文化組組長'],
+        group: '傳統文化組',
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -175,6 +186,29 @@ export const memberTerms: MemberTerm[] = [
         hobbies: PLACEHOLDER_TEXT,
         specialSkill: PLACEHOLDER_TEXT,
         certifications: PLACEHOLDER_TEXT,
+      },
+      {
+        slug: 'member-01',
+        name: '待補充',
+        titles: [],
+        group: '打藝應援組',
+        photo: PLACEHOLDER_PHOTO,
+        description: PLACEHOLDER_TEXT,
+      },
+      {
+        slug: 'member-02',
+        name: '待補充',
+        titles: [],
+        photo: PLACEHOLDER_PHOTO,
+        description: PLACEHOLDER_TEXT,
+      },
+      {
+        slug: 'alumni-01',
+        name: '待補充',
+        titles: ['第 0 屆社長'],
+        status: 'alumni',
+        photo: PLACEHOLDER_PHOTO,
+        description: PLACEHOLDER_TEXT,
       },
     ],
   },

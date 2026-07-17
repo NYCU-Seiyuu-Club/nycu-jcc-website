@@ -77,7 +77,11 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
 
   useEffect(() => {
     if (!currentMember) return;
-    window.history.replaceState(null, '', `/members/${currentMember.termId}/${currentMember.slug}`);
+    window.history.replaceState(
+      null,
+      '',
+      `/special-thanks/${currentMember.termId}/${currentMember.slug}`,
+    );
   }, [currentMember]);
 
   const handleSelectTerm = (termId: string) => {
