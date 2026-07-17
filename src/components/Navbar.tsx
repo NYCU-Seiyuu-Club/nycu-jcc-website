@@ -39,7 +39,7 @@ export default function Navbar({ currentPath, variant }: NavbarProps) {
       transition={{ duration: 0.4, ease: 'easeOut' }}
       className="fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm"
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between py-3">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
         <a href="/" className="flex items-center gap-2">
           <img src="/logo.webp" alt="社團 Logo" className="h-9 w-9 object-contain" />
           <span className="font-semibold text-gray-900">日本文化研究社</span>

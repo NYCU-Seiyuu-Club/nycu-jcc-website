@@ -99,7 +99,7 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
         <button
           type="button"
           onClick={() => handleSelectTerm(ALL_TERM_ID)}
-          className={`rounded-full px-5 py-2 text-lg font-medium transition-colors ${
+          className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors sm:px-5 sm:py-2 sm:text-lg ${
             selectedTermId === ALL_TERM_ID
               ? 'bg-gray-900 text-white'
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -112,7 +112,7 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
             key={term.id}
             type="button"
             onClick={() => handleSelectTerm(term.id)}
-            className={`rounded-full px-5 py-2 text-lg font-medium transition-colors ${
+            className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors sm:px-5 sm:py-2 sm:text-lg ${
               selectedTermId === term.id
                 ? 'bg-gray-900 text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -123,15 +123,15 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
         ))}
       </div>
 
-      <div className="relative mt-6 flex items-center justify-center gap-8">
+      <div className="relative mt-6 flex items-center justify-center gap-2 sm:gap-8">
         <button
           type="button"
           aria-label="上一位"
           onClick={() => handleStep(-1)}
           disabled={activeMembers.length < 2}
-          className="rounded-full border-2 border-gray-300 p-3 text-gray-600 transition-colors hover:bg-gray-100 disabled:opacity-30"
+          className="rounded-full border-2 border-gray-300 p-2 text-gray-600 transition-colors hover:bg-gray-100 disabled:opacity-30 sm:p-3"
         >
-          <ChevronLeft size={36} />
+          <ChevronLeft className="h-6 w-6 sm:h-9 sm:w-9" />
         </button>
 
         <div className="min-h-[24rem] w-full max-w-[96em]">
@@ -145,42 +145,42 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               >
                 <div
-                  className={`relative overflow-hidden rounded-[1.5rem] border-4 border-gray-300 ${
-                    !currentMember.oshi ? 'mx-auto w-[calc(5/7*100%)]' : 'w-full'
+                  className={`relative w-full overflow-hidden rounded-[1.5rem] border-4 border-gray-300 ${
+                    !currentMember.oshi ? 'sm:mx-auto sm:w-[calc(5/7*100%)]' : ''
                   }`}
                 >
                   <div
                     className="h-2"
                     style={{ backgroundColor: currentMember.accentColor ?? DEFAULT_ACCENT_COLOR }}
                   />
-                  <div className="flex items-center justify-between px-8 pt-6 font-mono text-sm uppercase tracking-widest text-gray-400">
+                  <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 px-4 pt-4 font-mono text-xs uppercase tracking-widest text-gray-400 sm:px-8 sm:pt-6 sm:text-sm">
                     <span>Club Member Pass</span>
                     <span>
                       No. {currentMember.termId}-{currentMember.slug}
                     </span>
                   </div>
-                  <div className="flex flex-col gap-6 p-8 sm:min-h-[28rem] sm:flex-row">
-                    <div className="relative w-96 shrink-0 justify-self-center self-center">
+                  <div className="flex flex-col gap-6 p-4 sm:min-h-[28rem] sm:flex-row sm:p-8">
+                    <div className="relative mx-auto w-64 shrink-0 self-center sm:mx-0 sm:w-96">
                       <img
                         src={currentMember.photo}
                         alt={currentMember.name}
-                        className="aspect-square h-96 w-96 rounded-2xl border-4 border-gray-300 bg-gray-50 object-cover"
+                        className="aspect-square w-64 rounded-2xl border-4 border-gray-300 bg-gray-50 object-cover sm:h-96 sm:w-96"
                       />
-                      <div className="pointer-events-none absolute inset-x-1 bottom-1 flex items-end justify-center rounded-b-xl bg-gradient-to-t from-black/75 via-black/30 to-transparent p-4 pt-10">
-                        <p className="select-none text-center text-2xl font-black leading-tight text-white sm:text-3xl">
+                      <div className="pointer-events-none absolute inset-x-1 bottom-1 flex items-end justify-center rounded-b-xl bg-gradient-to-t from-black/75 via-black/30 to-transparent p-3 pt-6 sm:p-4 sm:pt-10">
+                        <p className="select-none text-center text-lg font-black leading-tight text-white sm:text-2xl md:text-3xl">
                           {currentMember.titles.join('・')}
                         </p>
                       </div>
                     </div>
-                    <div className="relative flex-1 pl-5 pr-3 py-5 pt-8">
-                      <h2 className="relative text-3xl font-semibold text-gray-700">
+                    <div className="relative flex-1 pt-4 text-center sm:pl-5 sm:pr-3 sm:py-5 sm:pt-8 sm:text-left">
+                      <h2 className="relative text-2xl font-semibold text-gray-700 sm:text-3xl">
                         {currentMember.name}
                       </h2>
-                      <p className="mt-3 text-xl leading-relaxed text-gray-600">
+                      <p className="mt-3 px-5 text-lg leading-relaxed text-gray-600 sm:px-0 sm:text-xl">
                         {currentMember.description}
                       </p>
 
-                      <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2 text-base">
+                      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm sm:gap-x-6 sm:text-base">
                         {[
                           { label: '老家', value: currentMember.hometown },
                           { label: '誕生日', value: currentMember.birthday },
@@ -214,7 +214,7 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
                           <div className="mb-2 font-mono text-base uppercase tracking-widest text-gray-400">
                             聯繫
                           </div>
-                          <div className="flex max-w-xs flex-wrap gap-2 sm:max-w-100">
+                          <div className="mx-auto flex max-w-xs flex-wrap justify-center gap-2 sm:mx-0 sm:max-w-100 sm:justify-start">
                             {currentMember.sns.map((link) => {
                               const Icon = getSnsIcon(link.label);
                               const isLink = /^https?:\/\//.test(link.url);
@@ -254,7 +254,7 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
                       )}
 
                       <div
-                        className="pointer-events-none absolute bottom-3 right-3 flex items-end gap-0.5 opacity-90"
+                        className="pointer-events-none absolute bottom-3 right-3 hidden items-end gap-0.5 opacity-90 sm:flex"
                         aria-hidden="true"
                       >
                         {Array.from({ length: 38 }).map((_, i) => (
@@ -271,18 +271,14 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
                     </div>
 
                     {currentMember.oshi && (
-                      <div className="relative flex w-[22rem] shrink-0 flex-col items-center justify-start gap-3 border-t-2 border-gray-300 pt-6 text-center sm:border-l-2 sm:border-t-0 sm:pl-6 sm:pt-0">
-                        <div
-                          aria-hidden="true"
-                          className="pointer-events-none absolute -left-2.5 top-16 hidden h-0 w-0 border-y-[10px] border-l-[10px] border-y-transparent border-l-white sm:block"
-                        />
-                        <p className="my-5 text-2xl font-semibold uppercase tracking-wide text-gray-800">
+                      <div className="flex w-full shrink-0 flex-col items-center justify-start gap-3 border-t-2 border-gray-300 pt-6 text-center sm:w-[22rem] sm:border-l-2 sm:border-t-0 sm:pl-6 sm:pt-0">
+                        <p className="my-2 text-xl font-semibold uppercase tracking-wide text-gray-800 sm:my-5 sm:text-2xl">
                           主推成員
                         </p>
                         <img
                           src={currentMember.oshi.photo}
                           alt={currentMember.oshi.name}
-                          className="aspect-square h-72 w-72 rounded-2xl border-4 border-gray-300 bg-white object-cover"
+                          className="aspect-square h-56 w-56 rounded-2xl border-4 border-gray-300 bg-white object-cover sm:h-72 sm:w-72"
                         />
                         <div className="w-full">
                           <p className="mt-3 text-xl font-semibold text-gray-800">
@@ -308,9 +304,9 @@ export default function MembersBrowser({ terms, initialTermId, initialSlug }: Me
           aria-label="下一位"
           onClick={() => handleStep(1)}
           disabled={activeMembers.length < 2}
-          className="rounded-full border-2 border-gray-300 p-3 text-gray-600 transition-colors hover:bg-gray-100 disabled:opacity-30"
+          className="rounded-full border-2 border-gray-300 p-2 text-gray-600 transition-colors hover:bg-gray-100 disabled:opacity-30 sm:p-3"
         >
-          <ChevronRight size={36} />
+          <ChevronRight className="h-6 w-6 sm:h-9 sm:w-9" />
         </button>
       </div>
 
