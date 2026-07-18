@@ -1,0 +1,61 @@
+---
+interface GridItem {
+    slug: string;
+    title: string;
+    description: string;
+    image: string;
+}
+
+interface Props {
+    items: GridItem[];
+    hrefBase?: string;
+}
+
+const { items, hrefBase } = Astro.props;
+---
+
+<div class="space-y-6">
+    {
+        items.map((item, index) => {
+            const rowClass = [
+                "group flex flex-col overflow-hidden rounded-2xl border border-gray-200 shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:h-75",
+                index % 2 === 1 ? "sm:flex-row-reverse" : "",
+            ]
+                .filter(Boolean)
+                .join(" ");
+
+            const inner = (
+                <>
+                    <div class="sm:w-2/5">
+                        <img
+                            src={item.image}
+                            alt={item.title}
+                            class="h-36 w-full object-cover transition-transform duration-300 group-hover:scale-105 sm:h-full"
+                        />
+                    </div>
+                    <div class="flex flex-1 flex-col justify-center p-5">
+                        <h4 class="text-lg font-semibold text-gray-900">
+                            {item.title}
+                        </h4>
+                        <p class="mt-1 text-sm text-gray-600">
+                            {item.description}
+                        </p>
+                        {hrefBase && (
+                            <span class="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-gray-600 transition-colors group-hover:text-gray-900">
+                                了解更多 →
+                            </span>
+                        )}
+                    </div>
+                </>
+            );
+
+            return hrefBase ? (
+                <a href={`${hrefBase}/${item.slug}`} class={rowClass}>
+                    {inner}
+                </a>
+            ) : (
+                <div class={rowClass}>{inner}</div>
+            );
+        })
+    }
+</div>

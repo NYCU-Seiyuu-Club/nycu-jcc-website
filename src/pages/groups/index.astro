@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GroupsBrowser from '../../components/GroupsBrowser';
+import { aboutHighlights } from '../../data/about';
+
+const group = aboutHighlights[0];
+---
+
+<BaseLayout title="Groups | 日本文化研究社">
+	<main class="mx-auto max-w-4xl px-6 pb-20">
+		<GroupsBrowser client:load group={group} />
+	</main>
+</BaseLayout>

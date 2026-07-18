@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GroupsBrowser from '../../components/GroupsBrowser';
+import { aboutHighlights } from '../../data/about';
+
+export function getStaticPaths() {
+	return aboutHighlights.map((highlight) => ({
+		params: { slug: highlight.slug },
+		props: { group: highlight },
+	}));
+}
+
+const { group } = Astro.props;
+---
+
+<BaseLayout title="Groups | 日本文化研究社">
+	<main class="mx-auto max-w-4xl px-6 pb-20">
+		<GroupsBrowser client:load group={group} />
+	</main>
+</BaseLayout>

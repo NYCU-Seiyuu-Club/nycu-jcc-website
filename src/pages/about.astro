@@ -1,10 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AboutPoem from '../components/AboutPoem';
+import { aboutIntro, aboutPoems } from '../data/about';
 ---
 
 <BaseLayout title="About | 日本文化研究社">
 	<main class="mx-auto max-w-6xl px-6 pt-28 pb-20">
-		<h1 class="text-3xl font-bold text-gray-900">About</h1>
-		<p class="mt-4 text-gray-600">社團介紹與宗旨（內容建置中）。</p>
+		<p class="mx-auto max-w-3xl text-center text-lg leading-relaxed text-gray-600">
+			{aboutIntro}
+		</p>
+
+		<AboutPoem client:load poems={aboutPoems} />
 	</main>
 </BaseLayout>

@@ -1,63 +1,98 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero';
-import AnnounceCarousel from '../components/AnnounceCarousel';
-import HomeJoinUs from '../components/HomeJoinUs';
-import SocialLinks from '../components/SocialLinks';
-import { announcements } from '../data/announcements';
-import { aboutIntro, aboutHighlights, socialLinks } from '../data/about';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero";
+import AnnounceCarousel from "../components/AnnounceCarousel";
+import HomeJoinUs from "../components/HomeJoinUs";
+import SocialLinks from "../components/SocialLinks";
+import ImageRowGrid from "../components/ImageRowGrid.astro";
+import { announcements } from "../data/announcements";
+import { aboutHighlights, socialLinks } from "../data/about";
+import { activities } from "../data/activities";
 ---
 
 <BaseLayout navVariant="overlay">
-	<Hero client:load clubName="國立陽明交通大學 日本文化研究社" />
+    <Hero client:load clubName="國立陽明交通大學 日本文化研究社" />
 
-	<main id="main-content">
-		<section class="mx-auto max-w-6xl px-6 py-20">
-			<div class="flex items-end justify-between gap-4">
-				<div>
-					<h2 class="text-3xl font-bold text-gray-900">Announce</h2>
-					<p class="mt-2 text-gray-500">最新公告與消息</p>
-				</div>
-				<a
-					href="/announce"
-					class="shrink-0 text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
-				>
-					Read More →
-				</a>
-			</div>
+    <main id="main-content">
+        <section class="mx-auto max-w-6xl px-6 py-20">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Announce</h2>
+                <p class="mt-2 text-gray-500">最新公告與消息</p>
+            </div>
 
-			<div class="mt-10">
-				<AnnounceCarousel client:load announcements={announcements} />
-			</div>
-		</section>
+            <div class="mt-10">
+                <AnnounceCarousel client:load announcements={announcements} />
+            </div>
 
-		<section class="mx-auto max-w-6xl px-6 py-20">
-			<h2 class="text-3xl font-bold text-gray-900">About Us</h2>
-			<p class="mt-4 max-w-3xl text-lg leading-relaxed text-gray-600">{aboutIntro}</p>
+            <div class="mt-6 text-center">
+                <a
+                    href="/announce"
+                    class="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
+                >
+                    Read More →
+                </a>
+            </div>
+        </section>
 
-			<div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-				{aboutHighlights.map((highlight) => (
-					<div class="group overflow-hidden rounded-2xl border border-gray-200 shadow-sm transition-shadow hover:shadow-md">
-						<div class="overflow-hidden">
-							<img
-								src={highlight.image}
-								alt={highlight.title}
-								class="h-36 w-full object-cover transition-transform duration-300 group-hover:scale-105"
-							/>
-						</div>
-						<div class="p-5">
-							<h3 class="font-semibold text-gray-900">{highlight.title}</h3>
-							<p class="mt-2 text-sm text-gray-600">{highlight.description}</p>
-						</div>
-					</div>
-				))}
-			</div>
+        <section class="mx-auto max-w-6xl border-t border-gray-100 px-6 py-20">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Activities</h2>
+                <p class="mt-2 text-gray-500">看看我們平常都在做些什麼</p>
+            </div>
 
-			<div class="mt-14">
-				<SocialLinks links={socialLinks} />
-			</div>
-		</section>
-	</main>
+            <div class="mt-10">
+                <ImageRowGrid items={activities} />
+            </div>
+        </section>
 
-	<HomeJoinUs client:load />
+        <section class="mx-auto max-w-6xl border-t border-gray-100 px-6 py-20">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Groups</h2>
+                <p class="mt-2 text-gray-500">依照興趣選擇適合自己的分組</p>
+            </div>
+
+            <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {
+                    aboutHighlights.map((highlight) => (
+                        <a
+                            href={`/groups/${highlight.slug}`}
+                            class="group overflow-hidden rounded-2xl border border-gray-200 shadow-sm transition-shadow hover:shadow-md"
+                        >
+                            <div class="overflow-hidden">
+                                <img
+                                    src={highlight.image}
+                                    alt={highlight.title}
+                                    class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                />
+                            </div>
+                            <div class="p-5">
+                                <h4 class="font-semibold text-gray-900">
+                                    {highlight.title}
+                                </h4>
+                                <p class="mt-2 text-sm text-gray-600">
+                                    {highlight.description}
+                                </p>
+                                <span class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-gray-600 transition-colors group-hover:text-gray-900">
+                                    了解更多 →
+                                </span>
+                            </div>
+                        </a>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-6xl border-t border-gray-100 px-6 py-20">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Contact</h2>
+                <p class="mt-2 text-gray-500">歡迎透過社群媒體聯絡我們</p>
+            </div>
+
+            <div class="mt-10">
+                <SocialLinks links={socialLinks} />
+            </div>
+        </section>
+    </main>
+
+    <HomeJoinUs client:load />
 </BaseLayout>

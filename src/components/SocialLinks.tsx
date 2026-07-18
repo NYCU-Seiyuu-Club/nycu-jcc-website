@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 import { InstagramLogoIcon } from '@radix-ui/react-icons';
+import { Mail } from 'lucide-react';
 import { FacebookIcon, XIcon } from './icons/SocialIcons';
 import type { SocialLink } from '../data/about';
 
@@ -7,6 +8,7 @@ const SOCIAL_ICONS: Record<SocialLink['label'], ComponentType<{ className?: stri
   X: XIcon,
   Instagram: InstagramLogoIcon,
   Facebook: FacebookIcon,
+  Contact: Mail,
 };
 
 type SocialLinksProps = {
