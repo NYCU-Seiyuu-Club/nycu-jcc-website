@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
@@ -22,5 +23,6 @@ const { title = '國立陽明交通大學 日本文化研究社', navVariant = '
 	<body>
 		<Navbar client:load currentPath={Astro.url.pathname} variant={navVariant} />
 		<slot />
+		<Footer />
 	</body>
 </html>
