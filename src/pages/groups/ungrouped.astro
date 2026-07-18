@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UngroupedMembers from '../../components/groups/UngroupedMembers';
+import JoinUsButton from '../../components/groups/JoinUsButton';
+import { members } from '../../data/members';
+---
+
+<BaseLayout title="其他 | 日本文化研究社">
+	<main class="mx-auto max-w-6xl px-6 pt-24 pb-20">
+		<UngroupedMembers client:load members={members} />
+	</main>
+
+	<JoinUsButton client:load />
+</BaseLayout>

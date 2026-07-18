@@ -15,12 +15,14 @@ const NAV_LINKS: NavLink[] = [
   {
     href: '/groups',
     label: '小組',
-    children: aboutHighlights.map((group) => ({
-      href: `/groups/${group.slug}`,
-      label: group.title,
-    })),
+    children: [
+      ...aboutHighlights.map((group) => ({
+        href: `/groups/${group.slug}`,
+        label: group.title,
+      })),
+      { href: '/groups/ungrouped', label: '其他' },
+    ],
   },
-  { href: '/members', label: '成員' },
   { href: '/special-thanks', label: '特別感謝' },
   { href: '/blog', label: '部落格' },
 ];

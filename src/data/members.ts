@@ -18,6 +18,24 @@ export const members: Member[] = [
     groups: ['utage'],
   },
   {
+    slug: 'member-03',
+    name: '待補充',
+    photo: PLACEHOLDER_PHOTO,
+    groups: ['popular'],
+  },
+  {
+    slug: 'member-04',
+    name: '待補充',
+    photo: PLACEHOLDER_PHOTO,
+    groups: ['tradition'],
+  },
+  {
+    slug: 'member-05',
+    name: '待補充',
+    photo: PLACEHOLDER_PHOTO,
+    groups: ['geo'],
+  },
+  {
     slug: 'member-02',
     name: '待補充',
     photo: PLACEHOLDER_PHOTO,
