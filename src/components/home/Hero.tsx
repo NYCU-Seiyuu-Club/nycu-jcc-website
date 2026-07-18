@@ -12,7 +12,7 @@ export default function Hero({ clubName }: HeroProps) {
   };
 
   return (
-    <section className="relative flex h-screen w-full items-center justify-center overflow-hidden">
+    <section className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 scale-110 bg-cover bg-center blur-md"
         style={{ backgroundImage: "url('/hero-bg.jpg')" }}
@@ -27,6 +27,18 @@ export default function Hero({ clubName }: HeroProps) {
       >
         {clubName}
       </motion.h1>
+
+      <motion.a
+        href="/about"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.96 }}
+        className="relative z-10 mt-20 rounded-full border border-white/70 px-8 py-3 text-sm font-semibold tracking-widest text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-gray-900 sm:text-base"
+      >
+        關於我們
+      </motion.a>
 
       <motion.button
         type="button"

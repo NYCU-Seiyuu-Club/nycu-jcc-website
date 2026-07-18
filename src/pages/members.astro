@@ -1,20 +1,24 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import MembersGrid from '../components/MembersGrid';
-import JoinUsButton from '../components/JoinUsButton';
-import { honorMemberTerms } from '../data/honor_members';
-import { members } from '../data/members';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MembersGrid from "../components/members/MembersGrid";
+import JoinUsButton from "../components/members/JoinUsButton";
+import { honorMemberTerms } from "../data/honor_members";
+import { members } from "../data/members";
 ---
 
 <BaseLayout title="Members | 日本文化研究社">
-	<main class="mx-auto max-w-6xl px-6 pt-28 pb-20">
-		<h1 class="text-3xl font-bold text-gray-900">Members</h1>
-		<p class="mt-2 text-gray-500">歷屆社員</p>
+    <main class="mx-auto max-w-6xl px-6 pt-24 pb-20">
+        <h1 class="text-3xl font-bold text-gray-900">Members</h1>
+        <p class="mt-2 text-gray-500">歷屆社員</p>
 
-		<div class="mt-8">
-			<MembersGrid client:load terms={honorMemberTerms} others={members} />
-		</div>
-	</main>
+        <div class="mt-4 sm:-mt-3">
+            <MembersGrid
+                client:load
+                terms={honorMemberTerms}
+                others={members}
+            />
+        </div>
+    </main>
 
-	<JoinUsButton client:load />
+    <JoinUsButton client:load />
 </BaseLayout>

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import type { AboutHighlight } from '../data/about';
-import { CURRENT_TERM_ID, findHonorMember, PLACEHOLDER_PHOTO } from '../data/honor_members';
+import type { AboutHighlight } from '../../data/about';
+import { CURRENT_TERM_ID, findHonorMember, PLACEHOLDER_PHOTO } from '../../data/honor_members';
 
 type GroupsBrowserProps = {
   group: AboutHighlight;

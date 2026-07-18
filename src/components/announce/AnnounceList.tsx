@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { LayoutGrid, List } from 'lucide-react';
-import type { Announcement } from '../data/announcements';
+import type { Announcement } from '../../data/announcements';
 
 type AnnounceListProps = {
   announcements: Announcement[];
@@ -13,27 +13,34 @@ export default function AnnounceList({ announcements }: AnnounceListProps) {
 
   return (
     <div>
-      <div className="flex justify-end gap-2">
-        <button
-          type="button"
-          aria-label="網格檢視"
-          onClick={() => setView('grid')}
-          className={`rounded-full p-2 transition-colors ${
-            view === 'grid' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-          }`}
-        >
-          <LayoutGrid className="h-5 w-5" />
-        </button>
-        <button
-          type="button"
-          aria-label="清單檢視"
-          onClick={() => setView('list')}
-          className={`rounded-full p-2 transition-colors ${
-            view === 'list' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-          }`}
-        >
-          <List className="h-5 w-5" />
-        </button>
+      <div className="flex flex-wrap items-end-safe justify-between gap-4 mb-10">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Announce</h1>
+          <p className="mt-2 text-gray-500">最新公告與消息</p>
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            type="button"
+            aria-label="網格檢視"
+            onClick={() => setView('grid')}
+            className={`rounded-full p-2 transition-colors ${
+              view === 'grid' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+            }`}
+          >
+            <LayoutGrid className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            aria-label="清單檢視"
+            onClick={() => setView('list')}
+            className={`rounded-full p-2 transition-colors ${
+              view === 'list' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+            }`}
+          >
+            <List className="h-5 w-5" />
+          </button>
+        </div>
       </div>
 
       {view === 'grid' ? (

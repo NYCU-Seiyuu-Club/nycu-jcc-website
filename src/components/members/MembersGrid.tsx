@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
-import { MEMBER_GROUPS, type MemberGroupId, type MemberStatus, type HonorMemberTerm } from '../data/honor_members';
-import { mergeHonorMembersBySlug } from '../lib/honorMembersView';
-import type { Member } from '../data/members';
+import { MEMBER_GROUPS, type MemberGroupId, type MemberStatus, type HonorMemberTerm } from '../../data/honor_members';
+import { mergeHonorMembersBySlug } from '../../lib/honorMembersView';
+import type { Member } from '../../data/members';
 
 const ALL_FILTER = 'all';
 
@@ -156,7 +156,7 @@ export default function MembersGrid({ terms, others }: MembersGridProps) {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-2">
+      <div className="flex flex-wrap justify-center gap-2 mb-10">
         <button
           type="button"
           onClick={() => setFilter(ALL_FILTER)}

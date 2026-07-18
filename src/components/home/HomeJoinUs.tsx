@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { UserPlus } from 'lucide-react';
-import { JOIN_US_URL } from '../lib/constants';
+import { JOIN_US_URL } from '../../lib/constants';
 
 export default function HomeJoinUs() {
   return (

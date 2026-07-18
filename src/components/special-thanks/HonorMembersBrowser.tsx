@@ -8,13 +8,13 @@ import {
   InstagramLogoIcon,
   LinkedInLogoIcon,
 } from '@radix-ui/react-icons';
-import { BilibiliIcon, XIcon } from './icons/SocialIcons';
+import { BilibiliIcon, XIcon } from '../icons/SocialIcons';
 import {
   attachHonorTermId,
   DEFAULT_ACCENT_COLOR,
   type HonorMemberTerm,
   type HonorMemberWithTerm,
-} from '../data/honor_members';
+} from '../../data/honor_members';
 
 const ALL_TERM_ID = 'all';
 
@@ -153,8 +153,8 @@ export default function HonorMembersBrowser({
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               >
                 <div
-                  className={`relative w-full overflow-hidden rounded-[1.5rem] border-4 border-gray-300 ${
-                    !currentMember.oshi ? 'sm:mx-auto sm:w-[calc(5/7*100%)]' : ''
+                  className={`relative mx-auto w-full overflow-hidden rounded-[1.5rem] border-4 border-gray-300 ${
+                    !currentMember.oshi ? 'sm:w-[calc(5/7*100%)]' : ''
                   }`}
                 >
                   <div

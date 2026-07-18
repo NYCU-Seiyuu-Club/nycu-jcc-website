@@ -1,16 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AnnounceList from '../components/AnnounceList';
+import AnnounceList from '../components/announce/AnnounceList';
 import { announcements } from '../data/announcements';
 ---
 
 <BaseLayout title="Announce | 日本文化研究社">
-	<main class="mx-auto max-w-6xl px-6 pt-28 pb-20">
-		<h1 class="text-3xl font-bold text-gray-900">Announce</h1>
-		<p class="mt-2 text-gray-500">最新公告與消息</p>
-
-		<div class="mt-8">
-			<AnnounceList client:load announcements={announcements} />
-		</div>
+	<main class="mx-auto max-w-6xl px-6 pt-24 pb-20">
+		<AnnounceList client:load announcements={announcements} />
 	</main>
 </BaseLayout>

@@ -1,7 +1,7 @@
 import { useState, type WheelEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import type { Announcement } from '../data/announcements';
+import type { Announcement } from '../../data/announcements';
 
 type AnnounceCarouselProps = {
   announcements: Announcement[];

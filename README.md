@@ -26,26 +26,44 @@
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml       # 推送到 main 分支時自動 build 並部署到 GitHub Pages
-├── public/                   # 靜態資源（logo、favicon、CNAME 等）
+├── public/                   # 靜態資源（logo、favicon、CNAME、members 大頭照等）
 ├── src/
 │   ├── components/
-│   │   ├── Navbar.tsx        # 導覽列（首頁為滾動淡入的 overlay 樣式，其他頁面為固定顯示）
-│   │   └── Hero.tsx          # 首頁滿版背景區塊
+│   │   ├── Navbar.tsx        # 導覽列（全站共用，首頁為滾動淡入的 overlay 樣式，其他頁面固定顯示）
+│   │   ├── icons/            # 共用 icon（SocialIcons 給多個頁面的社群連結用）
+│   │   ├── home/              # 只給 pages/index.astro、pages/about.astro 用
+│   │   ├── groups/             # 只給 pages/groups/** 用
+│   │   ├── members/            # 只給 pages/members.astro 用
+│   │   └── special-thanks/     # 只給 pages/special-thanks/** 用
+│   ├── data/
+│   │   ├── about.ts          # About 文案、標語儲存庫、分組介紹（含相簿、組長 slug）、社群連結
+│   │   ├── activities.ts     # 首頁 Activities 區塊內容
+│   │   ├── announcements.ts  # 公告列表
+│   │   ├── honor_members.ts  # 歷屆幹部（含組別定義 MEMBER_GROUPS）與其詳細資料
+│   │   └── members.ts        # 一般社員名單
 │   ├── layouts/
 │   │   └── BaseLayout.astro  # 共用版型，引入全域樣式與 Navbar
+│   ├── lib/
+│   │   ├── constants.ts        # 共用常數（如加入我們連結）
+│   │   └── honorMembersView.ts # 把跨屆的幹部資料依 slug 合併成單一視圖
 │   ├── pages/
-│   │   ├── index.astro       # Home
-│   │   ├── members.astro     # Members
-│   │   ├── about.astro       # About
-│   │   ├── blog.astro        # Blog
-│   │   └── announce.astro    # Announce
+│   │   ├── index.astro                     # Home
+│   │   ├── about.astro                     # About（社團介紹＋標語）
+│   │   ├── groups/index.astro              # Groups（預設顯示第一組）
+│   │   ├── groups/[slug].astro             # Groups（指定組別，靜態產生四頁）
+│   │   ├── members.astro                   # Members
+│   │   ├── announce.astro, announce/[slug].astro   # Announce 列表與單篇
+│   │   ├── special-thanks/**               # 歷屆幹部瀏覽器（依屆別／個人）
+│   │   └── blog.astro                      # Blog
 │   └── styles/
-│       └── global.css        # Tailwind 進入點
+│       └── global.css        # Tailwind 進入點 + 霓虹文字等自訂 CSS
 ├── astro.config.mjs           # Astro 設定（含自訂網域用的 site）
 ├── package.json
 ├── pnpm-lock.yaml
 └── tsconfig.json              # TypeScript strict 設定
 ```
+
+`components/` 底下的子資料夾對應到會用到它的頁面（例如 `components/groups/GroupsBrowser.tsx` 只有 `pages/groups/**` 會 import）；只有 `Navbar.tsx`（全站共用）跟 `icons/`（被多個頁面共用的 icon）留在根目錄。加新元件時，先看它只給哪個頁面用，就放進對應資料夾；如果之後被第二個頁面重用，再考慮搬到根目錄或抽成共用資料夾。
 
 ## 本機開發
 

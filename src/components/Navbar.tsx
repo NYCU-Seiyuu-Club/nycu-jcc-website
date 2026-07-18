@@ -10,19 +10,19 @@ type NavLink = {
 };
 
 const NAV_LINKS: NavLink[] = [
-  { href: '/about', label: 'About' },
+  { href: '/about', label: '關於我們' },
+  { href: '/announce', label: '公告' },
   {
     href: '/groups',
-    label: 'Groups',
+    label: '小組',
     children: aboutHighlights.map((group) => ({
       href: `/groups/${group.slug}`,
       label: group.title,
     })),
   },
-  { href: '/announce', label: 'Announce' },
-  { href: '/members', label: 'Members' },
-  { href: '/special-thanks', label: 'Special Thanks' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/members', label: '成員' },
+  { href: '/special-thanks', label: '特別感謝' },
+  { href: '/blog', label: '部落格' },
 ];
 
 type NavbarProps = {

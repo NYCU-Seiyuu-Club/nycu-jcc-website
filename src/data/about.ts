@@ -94,10 +94,12 @@ export interface SocialLink {
   url: string;
 }
 
-// TODO: 換成正式的社群媒體連結與聯絡方式
 export const socialLinks: SocialLink[] = [
-  { label: 'X', url: '#' },
-  { label: 'Instagram', url: '#' },
-  { label: 'Facebook', url: '#' },
-  { label: 'Contact', url: '#' },
+  { label: 'X', url: 'https://x.com/nycu_jcc' },
+  { label: 'Instagram', url: 'https://www.instagram.com/nycu.jcc/' },
+  {
+    label: 'Facebook',
+    url: 'https://www.facebook.com/people/交大日本文化研究社/61591851335912/',
+  },
+  { label: 'Contact', url: 'mailto:nycu.seiyuu.club@gmail.com' },
 ];
