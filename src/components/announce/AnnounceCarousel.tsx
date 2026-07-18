@@ -38,7 +38,7 @@ export default function AnnounceCarousel({ announcements }: AnnounceCarouselProp
           <ChevronLeft className="h-5 w-5 sm:h-7 sm:w-7" />
         </button>
 
-        <div className="w-full max-w-3xl overflow-hidden">
+        <div className="w-full max-w-4xl overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.a
               key={current.slug}
@@ -53,7 +53,7 @@ export default function AnnounceCarousel({ announcements }: AnnounceCarouselProp
                 <img
                   src={current.coverImage}
                   alt={current.title}
-                  className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105 sm:h-72"
+                  className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105 sm:h-96"
                 />
               </div>
               <div className="p-5 sm:p-6">
