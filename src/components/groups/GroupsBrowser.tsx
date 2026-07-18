@@ -13,9 +13,6 @@ type GroupsBrowserProps = {
 export default function GroupsBrowser({ group, members }: GroupsBrowserProps) {
   const activityLeadEntry = getActivityLead();
 
-  // 活動長還在任時，一律只透過「活動長」欄位顯示，不能同時出現在下面的一般成員名單裡。
-  // 卸任後 activityLeadEntry 會是 undefined，這裡改讓他照一般成員身分留在名單中，
-  // 並在頭像右上角標示「前活動長」小標籤（不寫在名字下面）。
   const entries = getGroupMembers(members, group.slug as MemberGroupId)
     .filter((entry) => !(entry.slug === ACTIVITY_LEAD_SLUG && activityLeadEntry))
     .map((entry) =>

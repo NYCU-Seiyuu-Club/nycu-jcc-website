@@ -18,7 +18,6 @@ export const MEMBER_GROUPS: { id: MemberGroupId; label: string }[] = [
   { id: 'geo', label: '史地考察組' },
 ];
 
-/** 小組內的職位 */
 export type GroupRole = '組長' | '副組長';
 
 export interface GroupRoleEntry {
@@ -50,7 +49,6 @@ export interface HonorMember {
   oshi?: Oshi;
   accentColor?: string;
   groups: MemberGroupId[];
-  /** 這個人在哪個小組擔任組長／副組長，不填代表沒有擔任小組職位 */
   groupRoles?: GroupRoleEntry[];
   status?: MemberStatus;
 }

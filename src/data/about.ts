@@ -1,8 +1,7 @@
-// 之後會改串 CMS，目前先用這份 JSON 模擬內容。
-export const aboutIntro =
-  '國立陽明交通大學日本文化研究社成立於創社之初，致力於推廣日本流行文化、傳統文化與語言交流。我們相信文化沒有距離，透過社課、活動與交流，讓每一位對日本文化有興趣的人都能找到屬於自己的舞台。';
 
-// 標語儲存庫：每次載入首頁會從中隨機挑一組顯示，之後可以直接在這裡新增更多版本。
+export const aboutIntro =
+  '我們是一起熱衷於日本文化因而聚集起來的同好！\n交大日研擁有豐富的日本文化社課，從古典日本文化賞析到宅系打藝教學都有，社內學長姐亦擁有豐富赴日交換經驗。\n歡迎對日本各式文化有興趣的你加入社團！';
+
 export const aboutPoems: string[][] = [
   [
     '受夠了獨自追尋日本文化與動漫的漫長孤單嗎',
@@ -16,17 +15,38 @@ export const aboutPoems: string[][] = [
   ],
 ];
 
+export interface AboutFaq {
+  question: string;
+  answer: string;
+}
+
+export const aboutFaqs: AboutFaq[] = [
+  {
+    question: '需要會日文才能加入嗎？',
+    answer: '完全不需要！社課會從基礎開始帶，不管是零基礎還是已經會日文的人都歡迎加入。',
+  },
+  {
+    question: '社課大概多久一次？在哪裡上課？',
+    answer: '每週都有固定社課，實際時間與地點會在開學初公告，另外也會不定期舉辦校外活動與交流。',
+  },
+  {
+    question: '一定要參加過交換才能加入嗎？',
+    answer: '不用，社團成員大部分都沒交換過，反而很歡迎想了解交換經驗的人來跟學長姐聊聊。',
+  },
+  {
+    question: '可以只參加喜歡的分組活動嗎？',
+    answer: '可以，加入社團後可以自由選擇想參與的分組，也能同時參加多個分組的活動。',
+  },
+];
+
 export interface AboutHighlight {
   slug: string;
   title: string;
   description: string;
   content: string[];
   image: string;
-  /** 分組大合照，用於 /groups 頁面 */
   groupPhoto: string;
-  /** 活動相簿，用於 /groups 頁面 */
   gallery: string[];
-  /** 這個小組的代表色，用於 /groups 頁面做出區隔 */
   accentColor: string;
 }
 

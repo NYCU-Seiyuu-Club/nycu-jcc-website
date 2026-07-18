@@ -4,12 +4,10 @@ export interface Member {
   slug: string;
   name: string;
   photo: string;
-  /** 可同時屬於多個小組，空陣列代表沒分組 */
   groups: MemberGroupId[];
   status?: MemberStatus;
 }
 
-// TODO: 換成實際社員名單與照片。photo 對應的圖片請放到 public/members/ 底下。
 export const members: Member[] = [
   {
     slug: 'member-01',

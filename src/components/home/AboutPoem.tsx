@@ -12,7 +12,7 @@ export default function AboutPoem({ poems }: AboutPoemProps) {
   }, [poems]);
 
   return (
-    <div className="neon-poem mx-auto mt-10 max-w-4xl space-y-4 text-3xl font-normal leading-loose tracking-[0.2em] sm:text-4xl">
+    <div className="neon-poem mx-auto mt-40 mb-16 max-w-4xl space-y-2 text-3xl font-normal leading-relaxed tracking-[0.2em] sm:text-4xl">
       {lines.map((line, i) => (
         <p key={i}>{line}</p>
       ))}
