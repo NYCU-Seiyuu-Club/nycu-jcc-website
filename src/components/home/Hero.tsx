@@ -13,9 +13,12 @@ export default function Hero({ clubName }: HeroProps) {
 
   return (
     <section className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden">
-      <div
+      <motion.div
         className="absolute inset-0 scale-110 bg-cover bg-center blur-md"
         style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+        initial={{ opacity: 0, x: -80, y: -80, scale: 1.2 }}
+        animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+        transition={{ duration: 1.2, ease: 'easeOut' }}
       />
       <div className="absolute inset-0 bg-black/40" />
 
