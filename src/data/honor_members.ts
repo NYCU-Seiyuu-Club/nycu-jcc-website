@@ -18,6 +18,14 @@ export const MEMBER_GROUPS: { id: MemberGroupId; label: string }[] = [
   { id: 'geo', label: '史地考察組' },
 ];
 
+/** 小組內的職位 */
+export type GroupRole = '組長' | '副組長';
+
+export interface GroupRoleEntry {
+  groupId: MemberGroupId;
+  role: GroupRole;
+}
+
 /**
  * active：在校現任
  * graduated：已畢業離校
@@ -42,6 +50,8 @@ export interface HonorMember {
   oshi?: Oshi;
   accentColor?: string;
   groups: MemberGroupId[];
+  /** 這個人在哪個小組擔任組長／副組長，不填代表沒有擔任小組職位 */
+  groupRoles?: GroupRoleEntry[];
   status?: MemberStatus;
 }
 
@@ -105,6 +115,7 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         name: '企鵝',
         titles: ['副社長', '史地考察組組長'],
         groups: ['geo'],
+        groupRoles: [{ groupId: 'geo', role: '組長' }],
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -134,7 +145,7 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         slug: 'events',
         name: '撒咖那',
         titles: ['活動'],
-        groups: [],
+        groups: ['utage'],
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -165,6 +176,7 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         name: '天適',
         titles: ['打藝應援組組長'],
         groups: ['utage'],
+        groupRoles: [{ groupId: 'utage', role: '組長' }],
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -179,7 +191,8 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         slug: 'group-pop-culture-leader',
         name: '銀葉',
         titles: ['流行文化組組長'],
-        groups: ['popular'],
+        groups: ['popular', 'utage'],
+        groupRoles: [{ groupId: 'popular', role: '組長' }],
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -195,6 +208,7 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         name: '阿冬',
         titles: ['傳統文化組組長'],
         groups: ['tradition'],
+        groupRoles: [{ groupId: 'tradition', role: '組長' }],
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,

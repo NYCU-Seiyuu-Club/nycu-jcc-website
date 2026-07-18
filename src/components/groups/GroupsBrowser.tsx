@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import type { AboutHighlight } from '../../data/about';
 import type { Member } from '../../data/members';
-import { CURRENT_TERM_ID, findHonorMember, type MemberGroupId } from '../../data/honor_members';
-import { getGroupMembers, type GroupMemberEntry } from '../../lib/groupMembers';
+import type { MemberGroupId } from '../../data/honor_members';
+import { ACTIVITY_LEAD_SLUG, getActivityLead, getGroupMembers } from '../../lib/groupMembers';
 import MemberCard from './MemberCard';
 
 type GroupsBrowserProps = {
@@ -10,35 +10,23 @@ type GroupsBrowserProps = {
   members: Member[];
 };
 
-const ACTIVITY_LEAD_SLUG = 'events';
-
 export default function GroupsBrowser({ group, members }: GroupsBrowserProps) {
-  const entries = getGroupMembers(
-    members,
-    group.slug as MemberGroupId,
-    group.leaderSlug,
-    group.deputyLeaderSlug,
-  );
+  const activityLeadEntry = getActivityLead();
+
+  // 活動長還在任時，一律只透過「活動長」欄位顯示，不能同時出現在下面的一般成員名單裡。
+  // 卸任後 activityLeadEntry 會是 undefined，這裡改讓他照一般成員身分留在名單中，
+  // 並在頭像右上角標示「前活動長」小標籤（不寫在名字下面）。
+  const entries = getGroupMembers(members, group.slug as MemberGroupId)
+    .filter((entry) => !(entry.slug === ACTIVITY_LEAD_SLUG && activityLeadEntry))
+    .map((entry) =>
+      entry.slug === ACTIVITY_LEAD_SLUG && !activityLeadEntry
+        ? { ...entry, cornerBadge: entry.cornerBadge ?? '前活動長' }
+        : entry,
+    );
 
   const leaderEntry = entries.find((entry) => entry.isLeader);
   const deputyEntry = entries.find((entry) => entry.isDeputyLeader);
   const regularEntries = entries.filter((entry) => !entry.isLeader && !entry.isDeputyLeader);
-
-  const activityLead = findHonorMember(CURRENT_TERM_ID, ACTIVITY_LEAD_SLUG);
-  const activityLeadEntry: GroupMemberEntry | undefined = activityLead
-    ? {
-        key: `exec-${activityLead.slug}`,
-        slug: activityLead.slug,
-        name: activityLead.name,
-        photo: activityLead.photo,
-        href: `/special-thanks/${CURRENT_TERM_ID}/${activityLead.slug}`,
-        title: activityLead.titles.join('・'),
-        isLeader: false,
-        isDeputyLeader: false,
-        isHighlighted: true,
-        isExecutive: true,
-      }
-    : undefined;
 
   const officerSlots = [
     { label: '活動長', entry: activityLeadEntry, optional: false },
@@ -61,6 +49,10 @@ export default function GroupsBrowser({ group, members }: GroupsBrowserProps) {
       </div>
 
       <h1 className="mt-8 text-center text-3xl font-bold text-gray-900">{group.title}</h1>
+      <div
+        className="mx-auto mt-3 h-1.5 w-28 rounded-full"
+        style={{ backgroundColor: group.accentColor }}
+      />
 
       <div className="mx-auto mt-6 max-w-2xl space-y-3 text-center text-lg leading-relaxed text-gray-600">
         {group.content.map((paragraph, i) => (
@@ -68,7 +60,7 @@ export default function GroupsBrowser({ group, members }: GroupsBrowserProps) {
         ))}
       </div>
 
-      <div className="mt-14">
+      <div className="mt-20">
         <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-10 sm:gap-16">
           {officerSlots.map(({ label, entry }) => (
             <div key={label} className="w-48 sm:w-1/4">
@@ -81,8 +73,8 @@ export default function GroupsBrowser({ group, members }: GroupsBrowserProps) {
         </div>
       </div>
 
-      <div className="mt-14">
-        <h2 className="text-center text-xl font-bold text-gray-900">其他小組成員</h2>
+      <div className={`mt-20 ${group.gallery.length === 0 ? 'pb-20' : ''}`}>
+        <h2 className="text-center text-xl font-bold text-gray-900">小組成員</h2>
         <div className="mt-6 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 sm:gap-6">
           {regularEntries.map((entry) => (
             <MemberCard key={entry.key} entry={entry} />
@@ -94,7 +86,10 @@ export default function GroupsBrowser({ group, members }: GroupsBrowserProps) {
       </div>
 
       {group.gallery.length > 0 && (
-        <div className="relative left-1/2 mt-16 w-screen -translate-x-1/2">
+        <div
+          className="relative left-1/2 mt-20 w-screen -translate-x-1/2 pb-20 pt-14"
+          style={{ backgroundColor: `${group.accentColor}26` }}
+        >
           <h2 className="text-center text-xl font-bold text-gray-900">相簿</h2>
           <div className="mx-auto mt-6 grid max-w-6xl grid-cols-2 gap-4 px-6 sm:grid-cols-3">
             {group.gallery.map((src, i) => (

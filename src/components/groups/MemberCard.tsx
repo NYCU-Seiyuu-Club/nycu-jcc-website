@@ -4,11 +4,6 @@ type MemberCardProps = {
   entry?: GroupMemberEntry;
 };
 
-const STATUS_LABEL = {
-  graduated: '畢業',
-  stepped_down: '卸任',
-};
-
 export default function MemberCard({ entry }: MemberCardProps) {
   if (!entry) {
     return (
@@ -19,10 +14,8 @@ export default function MemberCard({ entry }: MemberCardProps) {
   }
 
   const isGraduated = entry.status === 'graduated';
-  const isSteppedDown = entry.status === 'stepped_down';
   const isOfficer = entry.isLeader || entry.isDeputyLeader || entry.isHighlighted || entry.isExecutive;
   const borderClass = isGraduated ? 'border-slate-400' : isOfficer ? 'border-amber-400' : 'border-gray-200';
-
   const card = (
     <div className="flex flex-col items-center text-center">
       <div
@@ -36,13 +29,13 @@ export default function MemberCard({ entry }: MemberCardProps) {
         {isGraduated && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/30">
             <span className="rotate-[-20deg] rounded border-2 border-white px-2 py-0.5 text-sm font-bold uppercase tracking-widest text-white">
-              {STATUS_LABEL.graduated}
+              畢業
             </span>
           </div>
         )}
-        {isSteppedDown && (
+        {entry.cornerBadge && (
           <span className="pointer-events-none absolute right-1 top-1 rounded-full bg-gray-900/70 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-white">
-            {STATUS_LABEL.stepped_down}
+            {entry.cornerBadge}
           </span>
         )}
       </div>

@@ -26,9 +26,8 @@ export interface AboutHighlight {
   groupPhoto: string;
   /** 活動相簿，用於 /groups 頁面 */
   gallery: string[];
-  /** 對應 honor_members.ts 裡的 HonorMember slug */
-  leaderSlug?: string;
-  deputyLeaderSlug?: string;
+  /** 這個小組的代表色，用於 /groups 頁面做出區隔 */
+  accentColor: string;
 }
 
 const PLACEHOLDER_IMAGE = '/members/notfound.png';
@@ -46,7 +45,7 @@ export const aboutHighlights: AboutHighlight[] = [
     image: PLACEHOLDER_IMAGE,
     groupPhoto: PLACEHOLDER_IMAGE,
     gallery: PLACEHOLDER_GALLERY,
-    leaderSlug: 'group-cheer-leader',
+    accentColor: '#00aabb',
   },
   {
     slug: 'popular',
@@ -59,7 +58,7 @@ export const aboutHighlights: AboutHighlight[] = [
     image: PLACEHOLDER_IMAGE,
     groupPhoto: PLACEHOLDER_IMAGE,
     gallery: PLACEHOLDER_GALLERY,
-    leaderSlug: 'group-pop-culture-leader',
+    accentColor: '#3498db',
   },
   {
     slug: 'tradition',
@@ -72,7 +71,7 @@ export const aboutHighlights: AboutHighlight[] = [
     image: PLACEHOLDER_IMAGE,
     groupPhoto: PLACEHOLDER_IMAGE,
     gallery: PLACEHOLDER_GALLERY,
-    leaderSlug: 'group-traditional-culture-leader',
+    accentColor: '#8b81c3',
   },
   {
     slug: 'geo',
@@ -85,7 +84,7 @@ export const aboutHighlights: AboutHighlight[] = [
     image: PLACEHOLDER_IMAGE,
     groupPhoto: PLACEHOLDER_IMAGE,
     gallery: PLACEHOLDER_GALLERY,
-    leaderSlug: 'vice-president',
+    accentColor: '#e0b5d3',
   },
 ];
 
