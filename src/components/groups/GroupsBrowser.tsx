@@ -51,28 +51,44 @@ export default function GroupsBrowser({ group, members }: GroupsBrowserProps) {
         style={{ backgroundColor: group.accentColor }}
       />
 
-      <div className="mx-auto mt-6 max-w-2xl space-y-3 text-center text-lg leading-relaxed text-gray-600">
+      <div
+        className="mx-auto mt-6 max-w-2xl space-y-3 rounded-2xl p-6 text-center text-lg leading-relaxed text-gray-600"
+        style={{ backgroundColor: `${group.accentColor}40` }}
+      >
         {group.content.map((paragraph, i) => (
           <p key={i}>{paragraph}</p>
         ))}
       </div>
 
-      <div className="mt-20">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="mt-20"
+      >
         <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-10 sm:gap-16">
           {officerSlots.map(({ label, entry }) => (
             <div key={label} className="w-48 sm:w-1/4">
-              <p className="mb-3 text-center text-lg font-semibold uppercase tracking-widest text-gray-900">
+              <p className="mb-3 text-center text-xl font-semibold uppercase tracking-widest text-gray-900">
                 {label}
               </p>
               <MemberCard entry={entry} />
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
-      <div className={`mt-20 ${group.gallery.length === 0 ? 'pb-20' : ''}`}>
-        <h2 className="text-center text-xl font-bold text-gray-900">小組成員</h2>
-        <div className="mt-6 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 sm:gap-6">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="relative left-1/2 mt-20 w-screen -translate-x-1/2 py-14"
+        style={{ backgroundColor: `${group.accentColor}40` }}
+      >
+        <h2 className="text-center text-2xl font-bold text-gray-900">小組成員</h2>
+        <div className="mx-auto mt-6 grid max-w-6xl grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 px-6 sm:gap-6">
           {regularEntries.map((entry) => (
             <MemberCard key={entry.key} entry={entry} />
           ))}
@@ -80,26 +96,23 @@ export default function GroupsBrowser({ group, members }: GroupsBrowserProps) {
         {regularEntries.length === 0 && (
           <p className="mt-6 text-center text-gray-400">目前沒有其他成員資料。</p>
         )}
-      </div>
 
-      {group.gallery.length > 0 && (
-        <div
-          className="relative left-1/2 mt-20 w-screen -translate-x-1/2 pb-20 pt-14"
-          style={{ backgroundColor: `${group.accentColor}26` }}
-        >
-          <h2 className="text-center text-xl font-bold text-gray-900">相簿</h2>
-          <div className="mx-auto mt-6 grid max-w-6xl grid-cols-2 gap-4 px-6 sm:grid-cols-3">
-            {group.gallery.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`${group.title}活動照片 ${i + 1}`}
-                className="aspect-[4/3] w-full rounded-xl object-cover"
-              />
-            ))}
+        {group.gallery.length > 0 && (
+          <div className="mx-auto mt-14 max-w-6xl border-t-2 border-gray-300 px-6 pt-14">
+            <h2 className="text-center text-2xl font-bold text-gray-900">相簿</h2>
+            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+              {group.gallery.map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt={`${group.title}活動照片 ${i + 1}`}
+                  className="aspect-[4/3] w-full rounded-xl object-cover"
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </motion.div>
     </motion.div>
   );
 }

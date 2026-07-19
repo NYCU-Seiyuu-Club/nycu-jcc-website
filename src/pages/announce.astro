@@ -5,7 +5,9 @@ import { announcements } from '../data/announcements';
 ---
 
 <BaseLayout title="Announce | 日本文化研究社">
-	<main class="mx-auto max-w-6xl px-6 pt-24 pb-20">
-		<AnnounceList client:load announcements={announcements} />
+	<main class="bg-gradient-to-b from-orange-50/60 to-transparent px-6 pt-24 pb-20">
+		<div class="reveal mx-auto max-w-6xl">
+			<AnnounceList client:load announcements={announcements} />
+		</div>
 	</main>
 </BaseLayout>

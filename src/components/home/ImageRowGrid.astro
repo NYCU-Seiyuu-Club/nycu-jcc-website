@@ -18,7 +18,7 @@ const { items, hrefBase } = Astro.props;
     {
         items.map((item, index) => {
             const rowClass = [
-                "group flex flex-col overflow-hidden rounded-2xl border border-gray-200 shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:h-75",
+                "group flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:h-75",
                 index % 2 === 1 ? "sm:flex-row-reverse" : "",
             ]
                 .filter(Boolean)

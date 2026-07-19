@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+/* 往下捲動才會出現的淡入／滑入效果，搭配 BaseLayout.astro 裡的 IntersectionObserver 使用 */
+.reveal {
+  opacity: 0;
+  transform: translateY(64px) scale(0.94);
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .animated-bg {
   position: fixed;
   inset: 0;

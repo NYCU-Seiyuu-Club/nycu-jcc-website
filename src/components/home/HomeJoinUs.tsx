@@ -1,15 +1,21 @@
 import { motion } from 'framer-motion';
 import { UserPlus } from 'lucide-react';
 import { JOIN_US_URL } from '../../lib/constants';
+import SocialLinks from './SocialLinks';
+import type { SocialLink } from '../../data/about';
 
-export default function HomeJoinUs() {
+type HomeJoinUsProps = {
+  socialLinks: SocialLink[];
+};
+
+export default function HomeJoinUs({ socialLinks }: HomeJoinUsProps) {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="relative overflow-hidden bg-gradient-to-br from-amber-400 via-orange-400 to-rose-400 px-6 py-20 text-center text-white"
+      initial={{ opacity: 0, y: 64, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden bg-gradient-to-br from-amber-400 via-orange-400 to-rose-400 px-6 py-20 pt-30 text-center text-white"
     >
       <div className="mx-auto max-w-2xl">
         <h2 className="text-3xl font-bold sm:text-4xl">加入我們</h2>
@@ -25,6 +31,12 @@ export default function HomeJoinUs() {
           <UserPlus className="h-5 w-5" />
           立即加入
         </motion.a>
+
+        <div className="mt-10">
+          <div className="mt-6">
+            <SocialLinks links={socialLinks} variant="dark" />
+          </div>
+        </div>
       </div>
     </motion.section>
   );

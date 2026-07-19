@@ -56,7 +56,7 @@ export default function Navbar({ currentPath, variant }: NavbarProps) {
       initial={{ y: variant === 'overlay' ? -80 : 0, opacity: variant === 'overlay' ? 0 : 1 }}
       animate={{ y: visible ? 0 : -80, opacity: visible ? 1 : 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="fixed inset-x-0 top-0 z-50 bg-gray-100/90 backdrop-blur-md py-1 shadow-sm"
+      className="fixed inset-x-0 top-0 z-50 bg-orange-50/90 backdrop-blur-md py-1 shadow-sm"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
         <a href="/" className="flex items-center gap-2">
@@ -70,8 +70,10 @@ export default function Navbar({ currentPath, variant }: NavbarProps) {
               <li key={link.href} className="group relative">
                 <a
                   href={link.href}
-                  className={`flex items-center gap-1 text-lg transition-colors ${
-                    isActive(link.href) ? 'text-gray-900 font-bold' : 'text-gray-600 font-medium hover:text-gray-900'
+                  className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-lg transition-colors ${
+                    isActive(link.href)
+                      ? 'bg-orange-100 font-bold text-orange-600'
+                      : 'font-medium text-gray-600 hover:text-orange-600'
                   }`}
                 >
                   {link.label}
@@ -86,8 +88,8 @@ export default function Navbar({ currentPath, variant }: NavbarProps) {
                           href={child.href}
                           className={`block whitespace-nowrap rounded-lg px-4 py-2 text-base transition-colors ${
                             isActive(child.href)
-                              ? 'bg-gray-100 text-gray-900 font-bold'
-                              : 'text-gray-600 font-medium hover:bg-gray-100 hover:text-gray-900'
+                              ? 'bg-orange-100 font-bold text-orange-600'
+                              : 'font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-600'
                           }`}
                         >
                           {child.label}
@@ -101,8 +103,10 @@ export default function Navbar({ currentPath, variant }: NavbarProps) {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className={`text-lg font-medium transition-colors ${
-                    isActive(link.href) ? 'text-gray-900' : 'text-gray-500 hover:text-gray-900'
+                  className={`rounded-full px-3 py-1.5 text-lg font-medium transition-colors ${
+                    isActive(link.href)
+                      ? 'bg-orange-100 font-bold text-orange-600'
+                      : 'text-gray-500 hover:text-orange-600'
                   }`}
                 >
                   {link.label}
