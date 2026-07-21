@@ -256,7 +256,7 @@ export default function CalendarEvents() {
         {state === 'error' && (
           <div className="flex flex-col items-center gap-3 py-16 text-center text-gray-400">
             <Calendar className="h-10 w-10 text-gray-300" />
-            <p>行事曆暫時無法載入，請稍後再試。</p>
+            <p>本月行事曆暫無任何預定。</p>
           </div>
         )}
 
