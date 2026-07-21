@@ -64,7 +64,7 @@ export interface HonorMemberTerm {
 export type HonorMemberWithTerm = HonorMember & { termId: string };
 
 export const PLACEHOLDER_PHOTO = '/members/notfound.png';
-const PLACEHOLDER_TEXT = '待補充';
+const PLACEHOLDER_TEXT = '???';
 
 /** 目前所在的屆別，換屆時改這個就好，非當前屆的成員會自動標記為卸任 */
 export const CURRENT_TERM_ID = '1st';
@@ -191,15 +191,23 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         titles: ['流行文化組組長'],
         groups: ['popular', 'utage'],
         groupRoles: [{ groupId: 'popular', role: '組長' }],
-        photo: PLACEHOLDER_PHOTO,
-        description: PLACEHOLDER_TEXT,
-        hometown: PLACEHOLDER_TEXT,
-        birthday: PLACEHOLDER_TEXT,
-        bloodType: PLACEHOLDER_TEXT,
-        height: PLACEHOLDER_TEXT,
-        hobbies: PLACEHOLDER_TEXT,
-        specialSkill: PLACEHOLDER_TEXT,
+        photo: '/members/silver.png',
+        description: '我被鬼頭明里指到了。',
+        hometown: '名古屋',
+        birthday: PLACEHOLDER_PHOTO,
+        bloodType: PLACEHOLDER_PHOTO,
+        height: '130',
+        hobbies: '逛二手店找聲優周邊',
+        specialSkill: '在沙發上睡著',
         certifications: PLACEHOLDER_TEXT,
+        sns: [
+
+        ],
+        oshi: {
+          name: '鬼頭明里',
+          subtitle: 'Raccoon Dog',
+          photo: '/members/akarin.png',
+        },
       },
       {
         slug: 'group-traditional-culture-leader',
@@ -212,6 +220,21 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         hometown: PLACEHOLDER_TEXT,
         birthday: PLACEHOLDER_TEXT,
         bloodType: PLACEHOLDER_TEXT,
+        height: PLACEHOLDER_TEXT,
+        hobbies: PLACEHOLDER_TEXT,
+        specialSkill: PLACEHOLDER_TEXT,
+        certifications: PLACEHOLDER_TEXT,
+      },
+      {
+        slug: 'teacher',
+        name: 'かなりあ',
+        titles: ['大王奶龍（社師）'],
+        groups: [],
+        photo: PLACEHOLDER_PHOTO,
+        description: PLACEHOLDER_TEXT,
+        hometown: PLACEHOLDER_TEXT,
+        birthday: PLACEHOLDER_TEXT,
+        bloodType: '奶龍',
         height: PLACEHOLDER_TEXT,
         hobbies: PLACEHOLDER_TEXT,
         specialSkill: PLACEHOLDER_TEXT,

@@ -70,7 +70,7 @@ export const aboutHighlights: AboutHighlight[] = [
   {
     slug: 'popular',
     title: '流行文化組',
-    description: '動漫、遊戲、J-Pop 都在這裡，一起追新番聊心得。',
+    description: '這裡接受所有日本流行的文化，從音樂到遊戲、從習慣到心理，希望大家都能在這裡找到容身之處',
     content: [
       '動漫、遊戲、J-Pop 都在這裡，一起追新番聊心得。',
       '每學期舉辦新番討論、遊戲交流與音樂分享會，是喜愛日本流行文化的社員最活躍的聚集地。',
