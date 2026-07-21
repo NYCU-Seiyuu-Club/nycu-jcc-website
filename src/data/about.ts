@@ -108,6 +108,10 @@ export const aboutHighlights: AboutHighlight[] = [
   },
 ];
 
+export function getGroupAccentColor(groupTitle?: string) {
+  return aboutHighlights.find((group) => group.title === groupTitle)?.accentColor;
+}
+
 export interface SocialLink {
   label: 'X' | 'Instagram' | 'Facebook' | 'Contact';
   url: string;

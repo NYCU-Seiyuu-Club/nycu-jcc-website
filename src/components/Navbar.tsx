@@ -31,7 +31,7 @@ const NAV_LINKS: NavLink[] = [
       { href: '/groups/ungrouped', label: '其他' },
     ],
   },
-  { href: '/special-thanks', label: '特別感謝' },
+  { href: '/special-thanks', label: '幹部' },
   {
     href: '/links',
     label: '相關連結',

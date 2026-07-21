@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight, LayoutGrid, List } from 'lucide-react';
-import type { Announcement } from '../../data/announcements';
+import type { JournalEntry } from '../../data/journal';
 import { aboutHighlights, getGroupAccentColor } from '../../data/about';
 
-type AnnounceListProps = {
-  announcements: Announcement[];
+type JournalListProps = {
+  entries: JournalEntry[];
 };
 
 type ViewMode = 'grid' | 'list';
@@ -13,27 +13,27 @@ const ALL_FILTER = 'all';
 const PAGE_SIZE = 6;
 const GROUPS = aboutHighlights.map((group) => ({ title: group.title, color: group.accentColor }));
 
-export default function AnnounceList({ announcements }: AnnounceListProps) {
+export default function JournalList({ entries }: JournalListProps) {
   const [view, setView] = useState<ViewMode>('grid');
   const [selectedCategory, setSelectedCategory] = useState<string>(ALL_FILTER);
   const [selectedGroup, setSelectedGroup] = useState<string>(ALL_FILTER);
   const [page, setPage] = useState(1);
 
   const categories = useMemo(
-    () => Array.from(new Set(announcements.map((item) => item.category))),
-    [announcements],
+    () => Array.from(new Set(entries.map((item) => item.category))),
+    [entries],
   );
 
   const filtered = useMemo(
     () =>
-      announcements
+      entries
         .filter(
           (item) =>
             (selectedCategory === ALL_FILTER || item.category === selectedCategory) &&
             (selectedGroup === ALL_FILTER || item.group === selectedGroup),
         )
         .sort((a, b) => b.date.localeCompare(a.date)),
-    [announcements, selectedCategory, selectedGroup],
+    [entries, selectedCategory, selectedGroup],
   );
 
   useEffect(() => setPage(1), [selectedCategory, selectedGroup]);
@@ -46,8 +46,8 @@ export default function AnnounceList({ announcements }: AnnounceListProps) {
     <div>
       <div className="flex flex-wrap items-end-safe justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Announce</h1>
-          <p className="mt-2 text-gray-500">最新公告與消息</p>
+          <h2 className="text-3xl font-bold text-gray-900">Journal</h2>
+          <p className="mt-2 text-gray-500">活動花絮與心得紀錄</p>
         </div>
 
         <div className="flex gap-2">
@@ -130,7 +130,7 @@ export default function AnnounceList({ announcements }: AnnounceListProps) {
           {pageItems.map((item) => (
             <a
               key={item.slug}
-              href={`/announce/${item.slug}`}
+              href={`/journal/${item.slug}`}
               className="group overflow-hidden rounded-2xl border border-gray-200 shadow-sm transition-shadow hover:shadow-md"
             >
               <div className="overflow-hidden">
@@ -166,7 +166,7 @@ export default function AnnounceList({ announcements }: AnnounceListProps) {
           {pageItems.map((item) => (
             <a
               key={item.slug}
-              href={`/announce/${item.slug}`}
+              href={`/journal/${item.slug}`}
               className="flex gap-4 py-4 transition-colors hover:bg-gray-50"
             >
               <img
@@ -198,7 +198,7 @@ export default function AnnounceList({ announcements }: AnnounceListProps) {
       )}
 
       {filtered.length === 0 && (
-        <p className="mt-8 text-center text-gray-400">此分類目前沒有公告。</p>
+        <p className="mt-8 text-center text-gray-400">此分類目前沒有活動日誌。</p>
       )}
 
       {totalPages > 1 && (

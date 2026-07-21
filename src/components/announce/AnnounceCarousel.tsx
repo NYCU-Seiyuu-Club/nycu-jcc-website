@@ -2,6 +2,7 @@ import { useState, type WheelEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Announcement } from '../../data/announcements';
+import { getGroupAccentColor } from '../../data/about';
 
 type AnnounceCarouselProps = {
   announcements: Announcement[];
@@ -59,9 +60,18 @@ export default function AnnounceCarousel({ announcements }: AnnounceCarouselProp
               <div className="p-5 sm:p-6">
                 <div className="flex items-center gap-3 text-xs text-gray-400">
                   <span>{current.date}</span>
-                  {current.tag && (
-                    <span className="rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-500">
-                      {current.tag}
+                  <span className="rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-500">
+                    {current.category}
+                  </span>
+                  {current.group && (
+                    <span
+                      style={{
+                        backgroundColor: `${getGroupAccentColor(current.group)}1a`,
+                        color: getGroupAccentColor(current.group),
+                      }}
+                      className="rounded-full px-2 py-0.5 font-medium"
+                    >
+                      {current.group}
                     </span>
                   )}
                 </div>
