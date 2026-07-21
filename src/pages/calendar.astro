@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CalendarEvents from '../components/calendar/CalendarEvents';
+---
+
+<BaseLayout title="行事曆 | 日本文化研究社" description="社團行事曆，掌握最新社課與活動時間。">
+	<main class="mx-auto max-w-3xl px-6 pt-28 pb-20">
+		<h1 class="text-center text-3xl font-bold text-gray-900">行事曆</h1>
+		<div class="mx-auto mt-2 h-1 w-14 rounded-full bg-[#FFA500]"></div>
+		<p class="mt-3 text-center text-gray-500">社團活動與社課時間</p>
+
+		<div class="reveal mt-12">
+			<CalendarEvents client:load />
+		</div>
+	</main>
+</BaseLayout>

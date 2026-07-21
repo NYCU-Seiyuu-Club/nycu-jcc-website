@@ -11,7 +11,15 @@ type NavLink = {
 
 const NAV_LINKS: NavLink[] = [
   { href: '/about', label: '關於我們' },
-  { href: '/announce', label: '公告' },
+  {
+    href: '/announce',
+    label: '公告',
+    children: [
+      { href: '/announce#announcements', label: '社團公告' },
+      { href: '/announce#journal', label: '活動日誌' },
+      { href: '/calendar', label: '行事曆' },
+    ],
+  },
   {
     href: '/groups',
     label: '小組',
@@ -32,7 +40,6 @@ const NAV_LINKS: NavLink[] = [
       { href: '/links#tools', label: '自製小工具' },
     ],
   },
-  { href: '/blog', label: '部落格' },
 ];
 
 type NavbarProps = {
@@ -59,6 +66,9 @@ export default function Navbar({ currentPath, variant }: NavbarProps) {
   const isActive = (href: string) =>
     href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 
+  const isParentActive = (link: NavLink) =>
+    isActive(link.href) || (link.children?.some((child) => isActive(child.href)) ?? false);
+
   return (
     <motion.nav
       initial={{ y: variant === 'overlay' ? -80 : 0, opacity: variant === 'overlay' ? 0 : 1 }}
@@ -79,7 +89,7 @@ export default function Navbar({ currentPath, variant }: NavbarProps) {
                 <a
                   href={link.href}
                   className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-lg transition-colors ${
-                    isActive(link.href)
+                    isParentActive(link)
                       ? 'bg-orange-100 font-bold text-orange-600'
                       : 'font-medium text-gray-600 hover:text-orange-600'
                   }`}
@@ -152,7 +162,7 @@ export default function Navbar({ currentPath, variant }: NavbarProps) {
                       setOpenMobileDropdown((open) => (open === link.href ? null : link.href))
                     }
                     className={`flex w-full items-center justify-between py-2 text-sm ${
-                      isActive(link.href) ? 'text-gray-900 font-bold' : 'text-gray-600 font-medium'
+                      isParentActive(link) ? 'text-gray-900 font-bold' : 'text-gray-600 font-medium'
                     }`}
                   >
                     {link.label}
