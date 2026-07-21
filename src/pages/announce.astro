@@ -4,7 +4,7 @@ import AnnounceList from '../components/announce/AnnounceList';
 import { announcements } from '../data/announcements';
 ---
 
-<BaseLayout title="Announce | 日本文化研究社">
+<BaseLayout title="公告 | 日本文化研究社" description="查看國立陽明交通大學日本文化研究社的最新公告與活動消息。">
 	<main class="bg-gradient-to-b from-orange-50/60 to-transparent px-6 pt-24 pb-20">
 		<div class="reveal mx-auto max-w-6xl">
 			<AnnounceList client:load announcements={announcements} />

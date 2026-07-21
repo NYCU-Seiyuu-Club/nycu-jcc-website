@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import HonorMembersBrowser from "../../../components/special-thanks/HonorMembersBrowser";
-import { honorMemberTerms } from "../../../data/honor_members";
+import { findHonorMember, honorMemberTerms } from "../../../data/honor_members";
 
 export function getStaticPaths() {
     return honorMemberTerms.flatMap((term) =>
@@ -12,9 +12,14 @@ export function getStaticPaths() {
 }
 
 const { term, slug } = Astro.params;
+const member = findHonorMember(term, slug);
 ---
 
-<BaseLayout title="Special Thanks | 日本文化研究社">
+<BaseLayout
+    title={`${member?.name ?? ''} | 特別感謝 | 日本文化研究社`}
+    description={member?.description ?? '國立陽明交通大學日本文化研究社歷屆幹部介紹。'}
+    image={member?.photo}
+>
     <main class="bg-gradient-to-b from-orange-50/60 to-transparent px-6 pt-24 pb-20">
         <div class="reveal mx-auto max-w-6xl">
             <h1 class="text-3xl font-bold text-gray-900">Special Thanks</h1>

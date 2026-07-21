@@ -1,5 +1,45 @@
 @import "tailwindcss";
 
+/* 頁面預載畫面，等資源（圖片、字型等）都載入完成才淡出，避免動畫卡頓的感覺 */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #ffffff;
+  transition: opacity 0.5s ease-out;
+}
+
+#page-loader.page-loader-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page-loader-spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 4px solid #fed7aa;
+  border-top-color: #f97316;
+  animation: page-loader-spin 0.8s linear infinite;
+}
+
+@keyframes page-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-loader-spinner {
+    animation: none;
+  }
+}
+
 /* 往下捲動才會出現的淡入／滑入效果，搭配 BaseLayout.astro 裡的 IntersectionObserver 使用 */
 .reveal {
   opacity: 0;

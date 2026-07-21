@@ -5,7 +5,10 @@ import JoinUsButton from '../../components/groups/JoinUsButton';
 import { members } from '../../data/members';
 ---
 
-<BaseLayout title="其他 | 日本文化研究社">
+<BaseLayout
+	title="其他 | 小組 | 日本文化研究社"
+	description="尚未加入特定分組的幹部與社員。"
+>
 	<main class="mx-auto max-w-6xl px-6 pt-24 pb-20">
 		<UngroupedMembers client:load members={members} />
 	</main>

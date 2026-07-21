@@ -15,7 +15,11 @@ export function getStaticPaths() {
 const { group } = Astro.props;
 ---
 
-<BaseLayout title="Groups | 日本文化研究社">
+<BaseLayout
+	title={`${group.title} | 小組 | 日本文化研究社`}
+	description={group.description}
+	image={group.groupPhoto}
+>
 	<main class="mx-auto max-w-6xl px-6">
 		<GroupsBrowser client:load group={group} members={members} />
 	</main>

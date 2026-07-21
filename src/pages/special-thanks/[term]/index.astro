@@ -10,9 +10,13 @@ export function getStaticPaths() {
 }
 
 const { term } = Astro.params;
+const termLabel = honorMemberTerms.find((t) => t.id === term)?.label ?? '';
 ---
 
-<BaseLayout title="Special Thanks | 日本文化研究社">
+<BaseLayout
+	title={`${termLabel} | 特別感謝 | 日本文化研究社`}
+	description={`國立陽明交通大學日本文化研究社${termLabel}幹部介紹。`}
+>
 	<main class="bg-gradient-to-b from-orange-50/60 to-transparent px-6 pt-24 pb-20">
 		<div class="reveal mx-auto max-w-6xl">
 			<h1 class="text-3xl font-bold text-gray-900">Special Thanks</h1>

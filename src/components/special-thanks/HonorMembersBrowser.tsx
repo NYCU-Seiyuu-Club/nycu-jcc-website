@@ -209,69 +209,71 @@ export default function HonorMembersBrowser({
                           ))}
                       </dl>
 
-                      {currentMember.sns && currentMember.sns.length > 0 && (
-                        <div className="mt-6 gap-y-2">
-                          <div className="mb-2 font-mono text-base uppercase tracking-widest text-gray-400">
-                            聯繫
-                          </div>
-                          <div className="mx-auto flex max-w-xs flex-wrap justify-center gap-2 sm:mx-0 sm:max-w-100 sm:justify-start">
-                            {currentMember.sns.map((link) => {
-                              const Icon = getSnsIcon(link.label);
-                              const isLink = /^https?:\/\//.test(link.url);
-                              const pillClass =
-                                'inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600';
+                      <div className="mt-6 flex flex-wrap items-end gap-4">
+                        {currentMember.sns && currentMember.sns.length > 0 && (
+                          <div>
+                            <div className="mb-2 font-mono text-base uppercase tracking-widest text-gray-400">
+                              聯繫
+                            </div>
+                            <div className="mx-auto flex max-w-xs flex-wrap justify-center gap-2 sm:mx-0 sm:max-w-100 sm:justify-start">
+                              {currentMember.sns.map((link) => {
+                                const Icon = getSnsIcon(link.label);
+                                const isLink = /^https?:\/\//.test(link.url);
+                                const pillClass =
+                                  'inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600';
 
-                              if (isLink) {
+                                if (isLink) {
+                                  return (
+                                    <a
+                                      key={link.label}
+                                      href={link.url}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      aria-label={link.label}
+                                      title={link.label}
+                                      className={`${pillClass} transition-colors hover:bg-gray-200`}
+                                    >
+                                      <Icon className="h-4 w-4" />
+                                      {link.label}
+                                    </a>
+                                  );
+                                }
+
                                 return (
-                                  <a
+                                  <span
                                     key={link.label}
-                                    href={link.url}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    aria-label={link.label}
-                                    title={link.label}
-                                    className={`${pillClass} transition-colors hover:bg-gray-200`}
+                                    title={link.url ? `${link.label}: ${link.url}` : link.label}
+                                    className={pillClass}
                                   >
                                     <Icon className="h-4 w-4" />
-                                    {link.label}
-                                  </a>
+                                    {link.url ? `${link.label}｜${link.url}` : link.label}
+                                  </span>
                                 );
-                              }
-
-                              return (
-                                <span
-                                  key={link.label}
-                                  title={link.url ? `${link.label}: ${link.url}` : link.label}
-                                  className={pillClass}
-                                >
-                                  <Icon className="h-4 w-4" />
-                                  {link.url ? `${link.label}｜${link.url}` : link.label}
-                                </span>
-                              );
-                            })}
+                              })}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
 
-                      <div
-                        className="pointer-events-none absolute bottom-3 right-3 hidden items-end gap-0.5 opacity-90 sm:flex"
-                        aria-hidden="true"
-                      >
-                        {Array.from({ length: 38 }).map((_, i) => (
-                          <span
-                            key={i}
-                            className="bg-gray-900"
-                            style={{
-                              width: i % 3 === 0 ? 4 : 2,
-                              height: i % 5 === 0 ? 48 : i % 2 === 0 ? 34 : 22,
-                            }}
-                          />
-                        ))}
+                        <div
+                          className="ml-auto hidden items-end gap-0.5 opacity-90 sm:flex"
+                          aria-hidden="true"
+                        >
+                          {Array.from({ length: 38 }).map((_, i) => (
+                            <span
+                              key={i}
+                              className="bg-gray-900"
+                              style={{
+                                width: i % 3 === 0 ? 4 : 2,
+                                height: i % 5 === 0 ? 48 : i % 2 === 0 ? 34 : 22,
+                              }}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
 
                     {currentMember.oshi && (
-                      <div className="flex w-full shrink-0 flex-col items-center justify-start gap-3 border-t-2 border-gray-300 pt-6 text-center sm:w-[22rem] sm:border-l-2 sm:border-t-0 sm:pl-6 sm:pt-0">
+                      <div className="flex w-full shrink-0 flex-col items-center justify-center gap-3 border-t-2 border-gray-300 pt-6 text-center sm:w-[22rem] sm:border-l-2 sm:border-t-0 sm:pl-6 sm:pt-0">
                         <p className="my-2 text-xl font-semibold uppercase tracking-wide text-gray-800 sm:my-5 sm:text-2xl">
                           主推成員
                         </p>

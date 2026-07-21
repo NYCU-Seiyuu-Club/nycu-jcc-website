@@ -13,7 +13,11 @@ const { announcement } = Astro.props;
 const paragraphs = announcement.content.split('\n\n');
 ---
 
-<BaseLayout title={`${announcement.title} | Announce`}>
+<BaseLayout
+	title={`${announcement.title} | 公告`}
+	description={announcement.summary}
+	image={announcement.coverImage}
+>
 	<main class="mx-auto max-w-3xl px-6 pt-28 pb-20">
 		<a href="/announce" class="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900">
 			← 返回公告列表

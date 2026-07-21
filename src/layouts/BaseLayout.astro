@@ -5,10 +5,20 @@ import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
+  description?: string;
+  image?: string;
   navVariant?: 'overlay' | 'solid';
 }
 
-const { title = '國立陽明交通大學 日本文化研究社', navVariant = 'solid' } = Astro.props;
+const {
+  title = '國立陽明交通大學 日本文化研究社',
+  description = '國立陽明交通大學日本文化研究社，致力於推廣日本流行文化、傳統文化與語言交流，歡迎對日本文化有興趣的你加入社團！',
+  image = '/hero-bg.jpg',
+  navVariant = 'solid',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(image, Astro.site);
 ---
 
 <html lang="zh-Hant">
@@ -18,14 +28,53 @@ const { title = '國立陽明交通大學 日本文化研究社', navVariant = '
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalURL} />
+
 		<title>{title}</title>
+		<meta name="description" content={description} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="國立陽明交通大學 日本文化研究社" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:locale" content="zh_TW" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL} />
 	</head>
 	<body>
+		<div id="page-loader">
+			<img src="/logo.webp" alt="社團 Logo" class="h-14 w-14 object-contain" />
+			<span class="font-semibold text-gray-900">交大日本文化研究社</span>
+			<div class="page-loader-spinner"></div>
+		</div>
+
 		<Navbar client:load currentPath={Astro.url.pathname} variant={navVariant} />
 		<slot />
 		<Footer />
 
 		<script>
+			function hidePageLoader() {
+				const loader = document.getElementById('page-loader');
+				if (!loader) return;
+				loader.classList.add('page-loader-hidden');
+				window.setTimeout(() => loader.remove(), 600);
+			}
+
+			if (document.readyState === 'complete') {
+				hidePageLoader();
+			} else {
+				window.addEventListener('load', hidePageLoader);
+				// 保險：萬一 load 事件因故沒觸發，最多等 5 秒還是要讓使用者看得到頁面
+				window.setTimeout(hidePageLoader, 5000);
+			}
+
 			function initReveal() {
 				const els = document.querySelectorAll<HTMLElement>('.reveal:not(.is-visible)');
 				if (els.length === 0) return;
