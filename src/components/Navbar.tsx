@@ -24,6 +24,14 @@ const NAV_LINKS: NavLink[] = [
     ],
   },
   { href: '/special-thanks', label: '特別感謝' },
+  {
+    href: '/links',
+    label: '相關連結',
+    children: [
+      { href: '/links#convenient', label: '便利連結' },
+      { href: '/links#tools', label: '自製小工具' },
+    ],
+  },
   { href: '/blog', label: '部落格' },
 ];
 
@@ -37,7 +45,7 @@ const REVEAL_THRESHOLD = 60;
 export default function Navbar({ currentPath, variant }: NavbarProps) {
   const [visible, setVisible] = useState(variant === 'solid');
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileGroupsOpen, setMobileGroupsOpen] = useState(false);
+  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     if (variant !== 'overlay') return;
@@ -140,18 +148,22 @@ export default function Navbar({ currentPath, variant }: NavbarProps) {
                 <li key={link.href}>
                   <button
                     type="button"
-                    onClick={() => setMobileGroupsOpen((open) => !open)}
+                    onClick={() =>
+                      setOpenMobileDropdown((open) => (open === link.href ? null : link.href))
+                    }
                     className={`flex w-full items-center justify-between py-2 text-sm ${
                       isActive(link.href) ? 'text-gray-900 font-bold' : 'text-gray-600 font-medium'
                     }`}
                   >
                     {link.label}
                     <ChevronDown
-                      className={`h-4 w-4 transition-transform ${mobileGroupsOpen ? 'rotate-180' : ''}`}
+                      className={`h-4 w-4 transition-transform ${
+                        openMobileDropdown === link.href ? 'rotate-180' : ''
+                      }`}
                     />
                   </button>
                   <AnimatePresence>
-                    {mobileGroupsOpen && (
+                    {openMobileDropdown === link.href && (
                       <motion.ul
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
