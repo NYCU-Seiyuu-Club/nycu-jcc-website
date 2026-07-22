@@ -185,9 +185,9 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         specialSkill: '讓對方出他想要的判定',
         certifications: PLACEHOLDER_TEXT,
          oshi: {
-          name: '指出毬亞',
-          subtitle: 'WITHLINE',
-          photo: '/members/chyun.png',
+          name: '木谷高明',
+          subtitle: 'KIDANI',
+          photo: '/members/kidani.webp',
         },
       },
       {
