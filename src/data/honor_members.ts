@@ -187,7 +187,7 @@ export const honorMemberTerms: HonorMemberTerm[] = [
          oshi: {
           name: '木谷高明',
           subtitle: 'KIDANI',
-          photo: '/members/kidani.webp',
+          photo: '/members/kidani.jpg',
         },
       },
       {
