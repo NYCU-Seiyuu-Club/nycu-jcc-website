@@ -177,7 +177,7 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         groupRoles: [{ groupId: 'utage', role: '組長' }],
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
-        hometown: PLACEHOLDER_TEXT,
+        hometown: '葛飾区',
         birthday: PLACEHOLDER_TEXT,
         bloodType: PLACEHOLDER_TEXT,
         height: PLACEHOLDER_TEXT,
