@@ -184,6 +184,11 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         hobbies: PLACEHOLDER_TEXT,
         specialSkill: PLACEHOLDER_TEXT,
         certifications: PLACEHOLDER_TEXT,
+         oshi: {
+          name: '指出毬亞',
+          subtitle: 'WITHLINE',
+          photo: '/members/chyun.png',
+        },
       },
       {
         slug: 'group-pop-culture-leader',
