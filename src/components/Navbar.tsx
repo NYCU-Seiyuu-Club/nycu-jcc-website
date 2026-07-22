@@ -38,6 +38,7 @@ const NAV_LINKS: NavLink[] = [
     children: [
       { href: '/links#convenient', label: '便利連結' },
       { href: '/links#tools', label: '自製小工具' },
+      { href: '/links#friends', label: '友情社團' },
     ],
   },
 ];
