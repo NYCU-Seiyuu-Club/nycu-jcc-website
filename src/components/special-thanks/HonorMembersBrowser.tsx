@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ComponentType } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ComponentType } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
@@ -14,6 +14,7 @@ import {
   DEFAULT_ACCENT_COLOR,
   type HonorMemberTerm,
   type HonorMemberWithTerm,
+  type SnsLink,
 } from '../../data/honor_members';
 
 const ALL_TERM_ID = 'all';
@@ -31,6 +32,10 @@ const SNS_ICONS: Record<string, ComponentType<{ className?: string }>> = {
 
 function getSnsIcon(label: string) {
   return SNS_ICONS[label.trim().toLowerCase()] ?? GlobeIcon;
+}
+
+function getRealSnsLinks(sns?: SnsLink[]) {
+  return (sns ?? []).filter((link) => link.label.trim().toLowerCase() !== 'none');
 }
 
 type HonorMembersBrowserProps = {
@@ -78,6 +83,13 @@ export default function HonorMembersBrowser({
   });
 
   const currentMember = activeMembers[currentIndex];
+  const realSnsLinks = useMemo(() => getRealSnsLinks(currentMember?.sns), [currentMember]);
+
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const descMeasureRef = useRef<HTMLParagraphElement>(null);
+  const [isDescExpanded, setIsDescExpanded] = useState(false);
+  const [isDescClamped, setIsDescClamped] = useState(false);
+  const [truncatedDescription, setTruncatedDescription] = useState('');
 
   useEffect(() => {
     if (!currentMember) return;
@@ -86,6 +98,74 @@ export default function HonorMembersBrowser({
       '',
       `/special-thanks/${currentMember.termId}/${currentMember.slug}`,
     );
+  }, [currentMember]);
+
+  useEffect(() => {
+    setIsDescExpanded(false);
+  }, [currentMember]);
+
+  useLayoutEffect(() => {
+    const realEl = descriptionRef.current;
+    const measureEl = descMeasureRef.current;
+    if (!realEl || !measureEl || !currentMember) return;
+
+    const fullText = currentMember.description;
+
+    const recalculate = () => {
+      // Copy the real paragraph's exact rendered pixel width onto the hidden
+      // clone, so there's no ambiguity from padding/containing-block math —
+      // the clone is a normal, fully laid-out element, just moved off-screen.
+      measureEl.style.width = `${realEl.clientWidth}px`;
+
+      // Measure two *actual* stacked lines via a forced <br>, instead of
+      // measuring one line and doubling it — doubling assumes the browser's
+      // sub-pixel line-stacking rounding is perfectly linear, which it isn't
+      // at every zoom level, and that's what caused the boundary to shift.
+      measureEl.textContent = '';
+      measureEl.append(document.createTextNode('測'));
+      measureEl.appendChild(document.createElement('br'));
+      measureEl.append(document.createTextNode('測'));
+      const maxHeight = measureEl.scrollHeight;
+
+      const renderCandidate = (text: string, withButton: boolean) => {
+        measureEl.textContent = '';
+        measureEl.append(document.createTextNode(withButton ? `${text}...` : text));
+        if (withButton) {
+          const btn = document.createElement('button');
+          btn.className = 'inline border-0 bg-transparent p-0 m-0 align-baseline font-medium';
+          btn.style.font = 'inherit';
+          btn.style.lineHeight = 'inherit';
+          btn.textContent = '展開';
+          measureEl.appendChild(btn);
+        }
+        return measureEl.scrollHeight <= maxHeight;
+      };
+
+      if (renderCandidate(fullText, false)) {
+        setIsDescClamped(false);
+        setTruncatedDescription(fullText);
+        return;
+      }
+
+      setIsDescClamped(true);
+      let lo = 0;
+      let hi = fullText.length;
+      let best = 0;
+      while (lo <= hi) {
+        const mid = Math.floor((lo + hi) / 2);
+        if (renderCandidate(fullText.slice(0, mid), true)) {
+          best = mid;
+          lo = mid + 1;
+        } else {
+          hi = mid - 1;
+        }
+      }
+      setTruncatedDescription(fullText.slice(0, best));
+    };
+
+    recalculate();
+    window.addEventListener('resize', recalculate);
+    return () => window.removeEventListener('resize', recalculate);
   }, [currentMember]);
 
   const handleSelectTerm = (termId: string) => {
@@ -185,16 +265,35 @@ export default function HonorMembersBrowser({
                         {currentMember.name}
                       </h2>
 
-                      <p className="mt-3 px-5 text-lg leading-relaxed text-gray-600 sm:px-0 sm:text-xl">
-                        {currentMember.description}
+                      <p
+                        aria-hidden="true"
+                        ref={descMeasureRef}
+                        className="invisible absolute left-0 top-0 text-lg leading-relaxed sm:text-xl"
+                      />
+                      <p
+                        ref={descriptionRef}
+                        className="mt-3 px-5 text-lg leading-relaxed text-gray-600 sm:px-0 sm:text-xl"
+                      >
+                        {isDescExpanded ? currentMember.description : truncatedDescription}
+                        {isDescClamped && !isDescExpanded && '...'}
+                        {isDescClamped && (
+                          <button
+                            type="button"
+                            onClick={() => setIsDescExpanded((expanded) => !expanded)}
+                            style={{ font: 'inherit', lineHeight: 'inherit' }}
+                            className="inline border-0 bg-transparent p-0 m-0 align-baseline font-medium text-orange-600 hover:underline"
+                          >
+                            {isDescExpanded ? '收合' : '展開'}
+                          </button>
+                        )}
                       </p>
 
-                      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm sm:gap-x-6 sm:text-base">
+                      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1 text-sm sm:gap-x-6 sm:text-base">
                         {[
                           { label: '老家', value: currentMember.hometown },
                           { label: '誕生日', value: currentMember.birthday },
                           { label: '血型', value: currentMember.bloodType },
-                          { label: '身高', value: currentMember.height },
+                          { label: '身高/體重', value: currentMember.height },
                           { label: '興趣', value: currentMember.hobbies },
                           { label: '特技', value: currentMember.specialSkill },
                         ]
@@ -210,49 +309,55 @@ export default function HonorMembersBrowser({
                       </dl>
 
                       <div className="mt-6 flex flex-wrap items-end gap-4">
-                        {currentMember.sns && currentMember.sns.length > 0 && (
-                          <div>
-                            <div className="mb-2 font-mono text-base uppercase tracking-widest text-gray-400">
-                              聯繫
-                            </div>
-                            <div className="mx-auto flex max-w-xs flex-wrap justify-center gap-2 sm:mx-0 sm:max-w-100 sm:justify-start">
-                              {currentMember.sns.map((link) => {
-                                const Icon = getSnsIcon(link.label);
-                                const isLink = /^https?:\/\//.test(link.url);
-                                const pillClass =
-                                  'inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600';
+                        <div>
+                          <div className="mb-2 font-mono text-base uppercase tracking-widest text-gray-400">
+                            聯繫
+                          </div>
+                          <div className="flex min-h-16 items-start">
+                            {realSnsLinks.length > 0 ? (
+                              <div className="mx-auto flex max-w-xs flex-wrap justify-center gap-2 sm:mx-0 sm:max-w-100 sm:justify-start">
+                                {realSnsLinks.map((link) => {
+                                  const Icon = getSnsIcon(link.label);
+                                  const isLink = /^https?:\/\//.test(link.url);
+                                  const pillClass =
+                                    'inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600';
 
-                                if (isLink) {
+                                  if (isLink) {
+                                    return (
+                                      <a
+                                        key={link.label}
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        aria-label={link.label}
+                                        title={link.label}
+                                        className={`${pillClass} transition-colors hover:bg-gray-200`}
+                                      >
+                                        <Icon className="h-4 w-4" />
+                                        {link.label}
+                                      </a>
+                                    );
+                                  }
+
                                   return (
-                                    <a
+                                    <span
                                       key={link.label}
-                                      href={link.url}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      aria-label={link.label}
-                                      title={link.label}
-                                      className={`${pillClass} transition-colors hover:bg-gray-200`}
+                                      title={link.url ? `${link.label}: ${link.url}` : link.label}
+                                      className={pillClass}
                                     >
                                       <Icon className="h-4 w-4" />
-                                      {link.label}
-                                    </a>
+                                      {link.url ? `${link.label}｜${link.url}` : link.label}
+                                    </span>
                                   );
-                                }
-
-                                return (
-                                  <span
-                                    key={link.label}
-                                    title={link.url ? `${link.label}: ${link.url}` : link.label}
-                                    className={pillClass}
-                                  >
-                                    <Icon className="h-4 w-4" />
-                                    {link.url ? `${link.label}｜${link.url}` : link.label}
-                                  </span>
-                                );
-                              })}
-                            </div>
+                                })}
+                              </div>
+                            ) : (
+                              <p className="text-base text-red-500">
+                                此人沒有留下任何聯絡方式 (∠・ω&lt;)⌒★
+                              </p>
+                            )}
                           </div>
-                        )}
+                        </div>
 
                         <div
                           className="ml-auto hidden items-end gap-0.5 opacity-90 sm:flex"

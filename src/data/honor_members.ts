@@ -44,7 +44,6 @@ export interface HonorMember {
   height?: string;
   hobbies?: string;
   specialSkill?: string;
-  certifications?: string;
   sns?: SnsLink[];
   oshi?: Oshi;
   accentColor?: string;
@@ -87,14 +86,13 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         groups: [],
         accentColor: '#995aff',
         photo: '/members/senba.png',
-        description: '社團創始人。任內推動多場日本文化交流活動，深化與姊妹社團的合作關係。',
+        description: '社團創始人。任內推動多場日本文化交流活動，深化與姊妹社團的合作關係。社團創始人。任內推動多場日本文化交流活動，深化與姊妹社團的合作關係。社團創始人。任內推動多場日本文化交流活動，深化與姊妹社團的合作關係。',
         hometown: '御台場',
         birthday: '12月28日',
         bloodType: '紅色的',
-        height: '179 cm',
+        height: '1.58 個提摩',
         hobbies: '看動漫',
         specialSkill: '一年去台場十次',
-        certifications: '',
         sns: [
           { label: 'Website', url: 'https://tokihato.com' },
           { label: 'X', url: 'https://x.com/senba1000m3' },
@@ -113,6 +111,7 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         name: '企鵝',
         titles: ['副社長', '史地考察組組長'],
         groups: ['geo'],
+        accentColor: DEFAULT_ACCENT_COLOR,
         groupRoles: [{ groupId: 'geo', role: '組長' }],
         photo: '/members/penguin.webp',
         description: PLACEHOLDER_TEXT,
@@ -122,13 +121,16 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         height: PLACEHOLDER_TEXT,
         hobbies: PLACEHOLDER_TEXT,
         specialSkill: PLACEHOLDER_TEXT,
-        certifications: PLACEHOLDER_TEXT,
+        sns: [
+          { label: 'None', url: '' },
+        ],
       },
       {
         slug: 'treasurer',
         name: '非洲人',
         titles: ['總務'],
         groups: [],
+        accentColor: DEFAULT_ACCENT_COLOR,
         photo: '/members/african.webp',
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -137,13 +139,16 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         height: PLACEHOLDER_TEXT,
         hobbies: PLACEHOLDER_TEXT,
         specialSkill: PLACEHOLDER_TEXT,
-        certifications: PLACEHOLDER_TEXT,
+        sns: [
+          { label: 'None', url: '' },
+        ],
       },
       {
         slug: 'events',
         name: '撒咖那',
         titles: ['活動'],
         groups: ['utage'],
+        accentColor: DEFAULT_ACCENT_COLOR,
         photo: '/members/sakana.webp',
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -152,13 +157,16 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         height: PLACEHOLDER_TEXT,
         hobbies: PLACEHOLDER_TEXT,
         specialSkill: PLACEHOLDER_TEXT,
-        certifications: PLACEHOLDER_TEXT,
+        sns: [
+          { label: 'None', url: '' },
+        ],
       },
       {
         slug: 'pr',
         name: '193',
         titles: ['公關'],
         groups: [],
+        accentColor: DEFAULT_ACCENT_COLOR,
         photo: PLACEHOLDER_PHOTO,
         description: PLACEHOLDER_TEXT,
         hometown: PLACEHOLDER_TEXT,
@@ -167,7 +175,9 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         height: PLACEHOLDER_TEXT,
         hobbies: PLACEHOLDER_TEXT,
         specialSkill: PLACEHOLDER_TEXT,
-        certifications: PLACEHOLDER_TEXT,
+        sns: [
+          { label: 'None', url: '' },
+        ],
       },
       {
         slug: 'group-cheer-leader',
@@ -183,8 +193,10 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         height: '好問題',
         hobbies: '卡片戰鬥先導者',
         specialSkill: '讓對方出他想要的判定',
-        certifications: PLACEHOLDER_TEXT,
-         oshi: {
+        sns: [
+          { label: 'None', url: '' },
+        ],
+        oshi: {
           name: '木谷高明',
           subtitle: 'KIDANI',
           photo: '/members/kidani.jpg',
@@ -201,12 +213,11 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         hometown: '名古屋',
         birthday: PLACEHOLDER_TEXT,
         bloodType: PLACEHOLDER_TEXT,
-        height: '130',
+        height: '130cm / 500kg',
         hobbies: '逛二手店找聲優周邊',
         specialSkill: '在沙發上睡著',
-        certifications: PLACEHOLDER_TEXT,
         sns: [
-
+          { label: 'None', url: '' },
         ],
         oshi: {
           name: '鬼頭明里',
@@ -228,7 +239,9 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         height: PLACEHOLDER_TEXT,
         hobbies: PLACEHOLDER_TEXT,
         specialSkill: PLACEHOLDER_TEXT,
-        certifications: PLACEHOLDER_TEXT,
+        sns: [
+          { label: 'None', url: '' },
+        ],
       },
       {
         slug: 'teacher',
@@ -243,7 +256,9 @@ export const honorMemberTerms: HonorMemberTerm[] = [
         height: PLACEHOLDER_TEXT,
         hobbies: PLACEHOLDER_TEXT,
         specialSkill: PLACEHOLDER_TEXT,
-        certifications: PLACEHOLDER_TEXT,
+        sns: [
+          { label: 'None', url: '' },
+        ],
       },
     ],
   },
