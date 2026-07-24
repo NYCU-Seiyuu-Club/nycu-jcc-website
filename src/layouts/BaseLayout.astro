@@ -23,6 +23,12 @@ const ogImageURL = new URL(image, Astro.site);
 
 <html lang="zh-Hant">
 	<head>
+		<script is:inline>
+			// 瀏覽器預設在重新整理時會自動還原捲動位置，這裡關掉讓每次整理都回到最上面。
+			if ('scrollRestoration' in history) {
+				history.scrollRestoration = 'manual';
+			}
+		</script>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
@@ -93,7 +99,7 @@ const ogImageURL = new URL(image, Astro.site);
 							}
 						});
 					},
-					{ threshold: 0.2, rootMargin: '0px 0px -120px 0px' },
+					{ threshold: 0.1, rootMargin: '0px 0px -40px 0px' },
 				);
 
 				els.forEach((el) => observer.observe(el));

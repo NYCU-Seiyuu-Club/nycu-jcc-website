@@ -12,12 +12,14 @@ export default function AboutPoem({ poems }: AboutPoemProps) {
   }, [poems]);
 
   return (
-    <div className="neon-poem mx-auto mt-40 mb-16 max-w-4xl space-y-2 [container-type:inline-size] text-center font-normal leading-relaxed tracking-[0.2em]">
-      {lines.map((line, i) => (
-        <p key={i} className="whitespace-nowrap text-[4cqi]">
-          {line}
-        </p>
-      ))}
+    <div className="flex min-h-[calc(100vh_-_6rem)] items-center justify-center">
+      <div className="neon-poem mx-auto w-full max-w-4xl space-y-2 [container-type:inline-size] text-center font-normal leading-relaxed tracking-[0.2em]">
+        {lines.map((line, i) => (
+          <p key={i} className="whitespace-nowrap text-[4cqi]">
+            {line}
+          </p>
+        ))}
+      </div>
     </div>
   );
 }

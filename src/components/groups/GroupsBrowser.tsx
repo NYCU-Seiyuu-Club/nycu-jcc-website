@@ -85,7 +85,9 @@ export default function GroupsBrowser({ group, members }: GroupsBrowserProps) {
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className="relative left-1/2 mt-20 w-screen -translate-x-1/2 py-14"
-        style={{ backgroundColor: `${group.accentColor}40` }}
+        style={{
+          background: `linear-gradient(to top, ${group.accentColor}40 0%, ${group.accentColor}40 75%, white 100%)`,
+        }}
       >
         <h2 className="text-center text-2xl font-bold text-gray-900">小組成員</h2>
         <div className="mx-auto mt-6 grid max-w-6xl grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 px-6 sm:gap-6">
