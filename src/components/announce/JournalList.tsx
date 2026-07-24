@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight, LayoutGrid, List } from 'lucide-react';
-import type { JournalEntry } from '../../data/journal';
+import type { JournalEntry } from '../../data/journals';
 import { aboutHighlights, getGroupAccentColor } from '../../data/about';
 
 type JournalListProps = {
